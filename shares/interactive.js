@@ -45,6 +45,7 @@ class Engine {
 			this._currentPage--;
 			this.paginationPrev();
 		}
+			console.log(this._currentPage);
 	}
 
 	reloadPage() { //Перезагрузить страницу
@@ -66,12 +67,12 @@ class Engine {
 				this.prev.classList.remove('d-n'); //Показываем кнопку назад
 			}
 			this._currentPage++;
-
 			if (this._currentPage === allPages - 1) {
 				this.next.classList.add('d-n'); //Скрываем кнопку вперед
 			}
 			this.paginationNext();
 		}
+		console.log(this._currentPage);
 	}
 
 	paginationPrev() { //Пагинация назад
@@ -89,26 +90,26 @@ class Engine {
 	}
 
 	playYes() { // Запустить случайное аудио с равильным ответом boom
-		var randomAudio = this.randomInteger(0, this.audioYes.length - 1);
+		let randomAudio = this.randomInteger(0, this.audioYes.length - 1);
 		this.stopAllAudio();
 		this.audioYes[randomAudio].play();
 	}
 
 	playNo() { // Запустить случайное аудио с неправильным ответом boom
-		var randomAudio = this.randomInteger(0, this.audioNo.length - 1);
+		let randomAudio = this.randomInteger(0, this.audioNo.length - 1);
 		this.stopAllAudio();
 		this.audioNo[randomAudio].play();
 	}
 
 	stopAllAudio() { //Остановить все аудио на странице
-		for (var k = 0; k < this.allAudio.length; k++) {
+		for (let k = 0; k < this.allAudio.length; k++) {
 			this.allAudio[k].currentTime = 0;
 			this.allAudio[k].pause();
 		}
 	}
 
 	randomInteger(min, max) { //Случайное целое
-		var rand = min - 0.5 + Math.random() * (max - min + 1);
+		let rand = min - 0.5 + Math.random() * (max - min + 1);
 		rand = Math.round(rand);
 		return rand;
 	}
@@ -124,6 +125,7 @@ class Engine {
 		this.style.opacity = '1';
 		setTimeout(() => {
 			this.style.opacity = '0';
+			this._currentPage--;
 		}, time);
 	}
 
@@ -141,8 +143,8 @@ class Answers extends Engine {
 		if (click.target.classList.contains('answer-yes')) {
 			this.playYes();
 			setTimeout(() => {
-				this.showNextPage();
-			}, 2000);
+				field.showNextPage();
+			}, 200);
 		} else {
 			this.playNo();
 		}
@@ -165,7 +167,7 @@ let answersField = new Answers();
 		answersField.answer[d].addEventListener('touchstart', function (event) { //Клик на кнопку ответ на вопрос
 			if (event.targetTouches.length == 1) {}
 			answersField.checkAnswer(event.targetTouches[0]);
-			field.opacityEffect.call(this, 300);
+			answersField.opacityEffect.call(this, 300);
 		}, false);
 	}
 
@@ -174,6 +176,7 @@ let answersField = new Answers();
 		if (event.targetTouches.length == 1) {}
 		field.hoverEffect.call(this, 'hover-nav-svg', 200);
 		field.showPrevPage();
+		//field.paginationPrev();
 	}, false);
 
 	field.restart.addEventListener('touchstart', function (event) { //Клик на кнопку перезагрузить
@@ -187,6 +190,7 @@ let answersField = new Answers();
 		if (event.targetTouches.length == 1) {
 			field.hoverEffect.call(this, 'hover-nav-svg', 200);
 			field.showNextPage();
+			//field.paginationNext();
 		}
 	}, false);
 
