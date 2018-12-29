@@ -1,0 +1,102 @@
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<!-- PhotoSwipe (zooming) css files Ends-->
+	<link rel="stylesheet" href="../shares/style.css">
+
+	<style>
+
+		body{
+			color: #fff;
+margin: 0;
+background-color: #fd7da7;
+		}
+
+		#video-bg {
+position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+overflow: hidden;
+z-index: 1;
+}
+
+
+#video-bg > video {
+position: absolute;
+top: 0;
+left: 0;
+min-width: 100%;
+min-height: 100%;
+width: auto;
+height: auto;
+z-index: -1;
+}
+
+@supports (object-fit: contain) {
+#video-bg > video {
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: contain;
+}
+}
+
+
+@media (max-device-width: 11cm) {
+
+
+}
+
+</style>
+</head>
+
+<body>
+
+	<div id="video-bg">
+		<video width="100%" height="auto" preload="auto" autoplay loop="loop" poster="poster.jpg" muted playsinline>
+			<source src="video.mp4" type="video/mp4">
+			</source>
+		</video>
+	</div>
+
+	<audio class="audio-answer" id="fist-audio">
+		<source src="summer-time.mp3" type="audio/mpeg">
+	</audio>
+	<audio class="audio-answer" id="second-audio">
+		<source src="shmel.mp3" type="audio/mpeg">
+	</audio>
+
+
+	<script src="plugins/video-animation/idel-active.js"></script>
+
+
+	<script>
+		var audioFirst = new VideoAnimation({
+			selector: 'fist-audio',
+			startTime: 0,
+			loop: true
+		});
+		var audioFirst1 = new VideoAnimation({
+			selector: 'second-audio',
+			startTime: 0,
+			loop: true
+		});
+	</script>
+
+	<script>
+		var video = document.querySelector('#video-bg video');
+		video.addEventListener('loadedmetadata', function () {
+			video.play();
+		}, false);
+	</script>
+</body>
+
+
+
+</html>

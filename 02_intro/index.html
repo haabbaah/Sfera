@@ -1,0 +1,199 @@
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<!-- slick (Sliding) css files start-->
+	<link rel="stylesheet" href="../shares/plugins/slick/slick.css">
+	<link rel="stylesheet" href="../shares/plugins/slick/slick-theme.css">
+	<!-- slick (Sliding) css files Ends-->
+
+	<!-- PhotoSwipe (zooming) css files start-->
+	<link rel="stylesheet" href="../shares/plugins/PhotoSwipe/photoswipe.css">
+	<link rel="stylesheet" href="../shares/plugins/PhotoSwipe/default-skin/default-skin.css">
+
+	<!-- PhotoSwipe (zooming) css files Ends-->
+	<link rel="stylesheet" href="../shares/style.css">
+	<link rel="stylesheet" href="../shares/plugins/video-animation/idel-active.css">
+
+	<style>
+		.wrapper-video{
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.item{
+position: relative;
+width: 50%;
+background-color: #fff;
+}
+#zay{
+	background-color: #fff;
+}
+.item::before{
+position: absolute;
+top: 0;
+left: -1px;
+content: '';
+width: 4px;
+height: 100%;
+background-color: #fff;
+z-index: 1000;
+}
+.item::after{
+position: absolute;
+top: 0;
+right: -1px;
+content: '';
+width: 4px;
+height: 100%;
+background-color: #fff;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+	<!-- PhotoSwipe (zooming) html popup  start -->
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="pswp__bg"></div>
+		<div class="pswp__scroll-wrap">
+			<div class="pswp__container">
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+			</div>
+			<div class="pswp__ui pswp__ui--hidden">
+				<div class="pswp__top-bar">
+
+					<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+					<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+					<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+					<div class="pswp__counter"></div>
+					<div class="pswp__preloader">
+						<div class="pswp__preloader__icn">
+							<div class="pswp__preloader__cut">
+								<div class="pswp__preloader__donut"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+					<div class="pswp__share-tooltip"></div>
+				</div>
+				<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+				<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+				<div class="pswp__caption">
+					<div class="pswp__caption__center"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- PhotoSwipe (zooming) html popup  End -->
+
+
+	<div class="grid">
+
+		<p class="uppercase center noindent nohyphens" style="margin-bottom: 1em;">УВАЖАЕМЫЕ РОДИТЕЛИ И ПЕДАГОГИ!</p>
+		<p>
+			Вы держите в руках книгу для занятий с ребёнком 3—4 лет, которая увлекательно и доступно знакомит малыша с такими
+			ключевыми математическими
+			понятиями, как «много», «мало», «один», «ни одного», «большой», «маленький». Пока ребёнок не усвоит их, он не сможет
+			приступить к ознакомлению
+			с количеством и счётом. Выполняя задания, малыш учится различать количество предметов, развивает зрительное
+			восприятие,
+			произвольное внимание,
+			память и мышление.
+		</p>
+		<p>
+			Предлагаемый комплекс рассчитан на активное участие взрослого, его творческое отношение к проведению каждого
+			занятия.
+			Просите ребёнка рассуждать, подробно рассказывать о том, что он видит на рисунках, давать развёрнутые
+			объяснения. Это развивает речь, учит выражать мысли чётко и последовательно.
+			Поощряйте самостоятельность малыша. Не торопите его и чаще хвалите.
+		</p>
+		<p>
+			Важно, чтобы занятия проходили в доброжелательной обстановке и приносили ребёнку радость. Они должны стать весёлой
+			игрой, совместным путешествием в занимательный мир математики.
+		</p>
+		<p>
+			Чтобы не переутомить ребёнка, занимайтесь не дольше 15—20 минут и обязательно закрепляйте пройденное во время игр
+			или
+			прогулок. Если малыш
+			не смог сразу выполнить задание, вернитесь к нему через какое­ то время.
+		</p>
+
+
+		<p class="uppercase center noindent nohyphens" style="margin-top: 1em;">ЖЕЛАЕМ УСПЕхА!</p>
+
+
+		<div class="wrapper-video">
+			<div class="item">
+				<video id="zay" width="100%" height="auto" preload="auto" poster="poster.jpg" playsinline style="overflow: hidden">
+					<source src="zay.mp4#t=2.1" type="video/mp4">
+					</source>
+				</video>
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div class="click-audio">
+		<audio class="audio-answer">
+			<source src="../shares/answer_sound/click.mp3" type="audio/mpeg">
+		</audio>
+	</div>
+
+
+
+	<!-- jquery library only for sliding gallry -->
+	<script type="text/javascript" src="../shares/plugins/jquery.min.js"></script>
+
+	<!-- slick (Sliding) js files files start-->
+	<script type="text/javascript" src="../shares/plugins/slick/slick.min.js"></script>
+	<script type="text/javascript" src="../shares/plugins/slick/gallery_sliding_custom.js"></script>
+
+
+	<!-- PhotoSwipe (zooming) js files start-->
+	<script src="../shares/plugins/PhotoSwipe/photoswipe.min.js"></script>
+	<script src="../shares/plugins/PhotoSwipe/photoswipe-ui-default.js"></script>
+	<script src="../shares/plugins/PhotoSwipe/zooming_custom_code.js"></script>
+
+	<script src="../shares/plugins/video-animation/idel-active.js"></script>
+	<script>
+		var animation1 = new VideoAnimation({
+			selector: 'zay',
+			startTime: 2.1,
+			loop: true,
+			autoplay: true
+		});
+
+		var clickAudio = document.querySelectorAll('.click-audio .audio-answer');
+		var video = document.querySelector('#zay');
+
+		video.addEventListener('click', function () {
+			clickPlay();
+		});
+
+		function clickPlay() { // Запустить случайное аудио с кликом на ответ
+			var randomAudio = randomInteger(0, clickAudio.length - 1);
+			clickAudio[randomAudio].play();
+		}
+
+		function randomInteger(min, max) { //Случайное целое
+			var rand = min - 0.5 + Math.random() * (max - min + 1);
+			rand = Math.round(rand);
+			return rand;
+		}
+	</script>
+
+</body>
+
+</html>

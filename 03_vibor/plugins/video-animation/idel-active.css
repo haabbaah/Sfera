@@ -1,0 +1,18 @@
+.animate {
+	animation-name: boom;
+	animation-duration: 0.4s;
+	animation-timing-function: ease-in-out;
+}
+
+
+@keyframes boom {
+	0% {}
+
+	50% {
+		transform: scale(.9, 1.2);
+		transform-origin: bottom;
+	}
+
+	100% {}
+}
+
