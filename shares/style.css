@@ -260,11 +260,11 @@ table::after {
 	height: 90%;
 }
 
-* {
+/* * {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	cursor: none;
-}
+} */
 
 *:active,
 *:focus {
@@ -479,14 +479,14 @@ img {
 	transition: all .3s ease;
 }
 
-.answer-yes{
+.answer-yes {
 	background-image: url(img/yes.png);
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
 }
 
-.answer-no{
+.answer-no {
 	background-image: url(img/no.png);
 	background-size: contain;
 	background-position: center;
@@ -511,6 +511,86 @@ img {
 }
 
 /* Ответы на вопросы end */
+
+
+
+
+/* Перетаскивание */
+
+.drag-and-drop {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.drag-and-drop .video-animation {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.drag-and-drop .svg-field {
+	position: absolute;
+}
+
+.svg-dash {
+	transform: translate(1.4vw, 1.4vw);
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke: #D6D6D6;
+	stroke-width: 10;
+	stroke-dasharray: 15, 15;
+	transition: all .2s ease;
+}
+
+/* При наведении */
+.accent-svg .svg-dash {
+	stroke: rgb(119, 119, 119);
+}
+/* При верном ответе */
+.green-svg .svg-dash {
+	stroke: #24B103;
+}
+/* При не верном ответе */
+.red-svg .svg-dash {
+	stroke: #FF1833;
+}
+
+.wrapper-dad-field {
+	display: flex;
+	justify-content: center;
+	margin-top: 5%;
+}
+
+.wrapper-dad-field .dad-field {
+	width: 14vw;
+	height: 14vw;
+	margin: 0 3%;
+	border: 0.5vw solid #fff;
+	border-radius: 3vw;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .5);
+	background-color: #89C845;
+}
+
+
+.btn-dad {
+	position: absolute;
+	top: 81%;
+	left: 43%;
+	width: 14%;
+	height: 16%;
+	background-size: cover;
+	z-index: 100;
+	-webkit-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+}
+
+
+
+/* Перетаскивание end */
 
 
 
@@ -864,9 +944,6 @@ a:active {
 }
 
 @media (max-device-width: 11cm) {
-	.grid {
-		margin: 0 8%;
-	}
 
 	.next-a,
 	.prev-a {

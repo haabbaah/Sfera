@@ -6,368 +6,295 @@
 	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="plugins/video-animation/idel-active.css">
 	<link rel="stylesheet" href="../shares/style.css">
+
 	<style>
+		.drag-and-drop {
+margin-top: 20%;
+}
+
+.sf-1 {
+top: 55%;
+left: 26%;
+width: 19%;
+height: 26%;
+opacity: 1
+}
+
+.sf-2 {
+top: 60%;
+left: -3%;
+width: 19%;
+height: 26%;
+opacity: 1
+}
+
+.sf-3 {
+top: -17%;
+left: 33%;
+width: 19%;
+height: 26%;
+opacity: 1
+}
+
+.sf-4 {
+top: 13%;
+left: 38%;
+width: 19%;
+height: 26%;
+opacity: 1
+}
+
+.sf-5 {
+top: 8%;
+left: -5%;
+width: 19%;
+height: 26%;
+opacity: 1
+}
+
 
 	</style>
 </head>
 
 <body>
 
-	<div class="grid">
 
+	<section class="window">
 
-		<section class="main-elements first-cont">
-			<div class="controls controls-adj-height">
-				<div class="controls-item">
-					<div class="controls-wrapper">
-						<div class="next-prev">
-							<button class="controls-btn  btn-click-prev">
-								<svg class="svg-click-prev" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
-									<path d="M 230.76331,221.07365 136.6472,220.98557 27.785303,109.51394 138.50997,-0.86087097 232.13353,-0.82572875 123.61862,109.99207 Z">
-								</svg>
-							</button>
-							<button class="controls-btn btn-click-start">
-								<svg class="svg-click-start" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
-									<path d="M 26.702059,59.447527 109.85682,0.48324162 110.61277,28.831455 145.0086,28.453479 c 0,0 84.67168,2.946672 87.69048,90.336311 2.01405,58.30353 -28.80275,75.89686 -39.46609,85.75473 -10.66334,9.85787 -38.77498,15.0542 -38.77498,15.0542 L 38.41932,219.33145 v -54.42857 h 114.14881 c 0,0 31.28921,-5.32834 29.59285,-42.44404 C 180.46462,85.343139 151.4342,82.126097 151.4342,82.126097 h -41.1994 v 29.482143 z">
-								</svg>
-							</button>
-							<button class="controls-btn btn-click-next">
-								<svg class="svg-click-next" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
-									<path d="M 29.490733,-0.96457258 123.60611,-1.3466068 233.02345,109.57987 122.85149,220.50637 29.22892,220.93888 137.18895,109.58043 Z">
-								</svg>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="controls-item">
-					<div class="controls-wrapper">
-
-					</div>
-				</div>
-				<div class="controls-item">
-					<div class="controls-wrapper">
-
-					</div>
-				</div>
-				<div class="controls-item">
-					<div class="controls-wrapper">
-
-					</div>
-				</div>
+		<div class="navigation">
+			<div class="controls-btn  btn-click-prev d-n">
+				<svg class="svg-click-prev" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
+					<path d="M 230.76331,221.07365 136.6472,220.98557 27.785303,109.51394 138.50997,-0.86087097 232.13353,-0.82572875 123.61862,109.99207 Z">
+				</svg>
 			</div>
-			<div class="interactive interactive-adj-height">
+			<div class="controls-btn btn-click-start">
+				<svg class="svg-click-start" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
+					<path d="M 26.702059,59.447527 109.85682,0.48324162 110.61277,28.831455 145.0086,28.453479 c 0,0 84.67168,2.946672 87.69048,90.336311 2.01405,58.30353 -28.80275,75.89686 -39.46609,85.75473 -10.66334,9.85787 -38.77498,15.0542 -38.77498,15.0542 L 38.41932,219.33145 v -54.42857 h 114.14881 c 0,0 31.28921,-5.32834 29.59285,-42.44404 C 180.46462,85.343139 151.4342,82.126097 151.4342,82.126097 h -41.1994 v 29.482143 z">
+				</svg>
+			</div>
+			<div class="controls-btn btn-click-next">
+				<svg class="svg-click-next" viewBox="0 0 230 230" preserveAspectRatio="xMidYMin slice">
+					<path d="M 29.490733,-0.96457258 123.60611,-1.3466068 233.02345,109.57987 122.85149,220.50637 29.22892,220.93888 137.18895,109.58043 Z">
+				</svg>
+			</div>
+		</div>
 
+		<div class="interactive-field">
+			<div class="item">
+				<div class="grid">
 
-				<div class="int-item">
-					<div class="block-imgs">
-						<img class="img-resp" src="img/01_1.jpg" alt="" data-answer="0">
-						<img class="img-resp" src="img/01_2.jpg" alt="" data-answer="1">
-					</div>
+					<div class="drag-and-drop">
 
-					<div class="answer-field a-f-3">
-						<img class="img-resp" src="no.png" alt="" data-answer="0">
-					</div>
-					<div class="answer-field a-f-4">
-						<img class="img-resp" src="yes.png" alt="" data-answer="1">
-					</div>
+						<div class="video-animation">
+							<video class="" width="50%" height="auto" preload="auto" poster="video/poster1.jpg" playsinline>
+								<source src="video/01.mp4" type="video/mp4">
+								</source>
+							</video>
+							<video class="" width="50%" height="auto" preload="auto" poster="video/poster2.jpg" playsinline>
+								<source src="video/02.mp4" type="video/mp4">
+								</source>
+							</video>
+						</div>
 
-				</div>
-				<div class="int-item">
-					<div class="block-imgs">
-						<img class="img-resp" src="img/01_1.jpg" alt="" data-answer="2">
-						<img class="img-resp" src="img/01_2.jpg" alt="" data-answer="3">
-					</div>
+						<div class="svg-field sf-1 dropzone" data-drag="1">
+							<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
+								<path d="M 32.874151,13.159762 C 113.43797,70.166077 159.55991,81.31349 159.55991,81.31349 c 0,0 -11.51546,72.89712 -85.793522,64.94649 C 66.063712,145.4355 11.483906,129.59916 3.4745038,81.31349 -4.534898,33.027819 32.874151,13.159762 32.874151,13.159762 Z">
+							</svg>
+						</div>
+						<div class="svg-field sf-2 dropzone" data-drag="2">
+							<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
+								<path d="m 13.363476,47.63753 c 0,0 76.331824,9.513786 138.367334,-18.897855 0,0 33.76794,38.239993 -1.52534,82.240735 C 137.32325,127.04089 85.771057,155.91983 42.072023,126.60618 -1.9466876,97.078087 13.363476,47.63753 13.363476,47.63753 Z">
+							</svg>
+						</div>
+						<div class="svg-field sf-3 dropzone" data-drag="5">
+							<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
+								<path d="m 11.528274,95.349702 c 0,0 61.259888,-30.547406 117.172616,-88.2574405 0,0 43.66282,18.0193965 40.06548,66.9017845 C 167.54398,90.604462 144.53118,150.86729 87.312499,152.04613 29.69225,153.23324 11.528274,95.349702 11.528274,95.349702 Z">
+							</svg>
+						</div>
+						<div class="svg-field sf-4 dropzone" data-drag="3">
+							<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
+								<path d="m 127.18899,39.787202 c 0,0 -20.22943,-30.1412878 -48.00298,-24.568452 -57.766134,11.590925 -56.322027,64.788926 -55.751486,69.169643 6.018965,46.214667 49.325892,52.349697 49.325892,52.349697 0,0 13.050642,-52.842411 54.428574,-96.950888 z">
+							</svg>
+						</div>
+						<div class="svg-field sf-5 dropzone" data-drag="4">
+							<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
+								<path d="m 14.552083,130.50149 c 0,0 -23.3681846,-55.473339 29.104166,-91.092265 31.779779,-21.572534 86.267061,-6.205014 103.376491,13.607144 33.8136,39.155049 9.82738,77.107141 9.82738,77.107141 0,0 -67.486842,-13.58582 -142.308037,0.37798 z">
+							</svg>
+						</div>
 
-					<div class="answer-field a-f-5">
-						<img class="img-resp" src="yes.png" alt="" data-answer="2">
-					</div>
-					<div class="answer-field a-f-6">
-						<img class="img-resp" src="no.png" alt="" data-answer="3">
-					</div>
+						<div class="wrapper-dad-field">
+							<div class="dad-field">
 
-				</div>
-
-				<div class="int-item">
-					<div class="block-imgs">
-						<img class="img-resp" src="img/01_1.jpg" alt="">
-						<img class="img-resp" src="img/01_2.jpg" alt="">
-					</div>
-
-					<div class="answer-field a-f-7">
-						<img class="img-resp" src="yes.png" alt="">
-					</div>
-					<div class="answer-field a-f-8">
-						<img class="img-resp" src="no.png" alt="">
-					</div>
-					<div class="answer-field a-f-9">
-						<img class="img-resp" src="no.png" alt="">
-					</div>
-					<div class="answer-field a-f-10">
-						<img class="img-resp" src="no.png" alt="">
-					</div>
-					<div class="answer-field a-f-11">
-						<img class="img-resp" src="no.png" alt="">
-					</div>
-					<div class="answer-field a-f-12">
-						<img class="img-resp" src="no.png" alt="">
-					</div>
-
-				</div>
-
-				<div class="int-item">
-					<div class="wrapp-video">
-						<video id="left-mouse" class="add-start-interact" data-add="add-fild1" width="50%" height="auto" preload="auto"
-						 poster="video/poster1.jpg" playsinline>
-							<source src="video/01.mp4" type="video/mp4">
-							</source>
-						</video>
-						<video id="right-mouse" class="add-start-interact" data-add="add-fild2" width="50%" height="auto" preload="auto"
-						 poster="video/poster2.jpg" playsinline>
-							<source src="video/02.mp4" type="video/mp4">
-							</source>
-						</video>
-					</div>
-
-					<div class="answer-field add-field a-f-13" data-drag="1">
-						<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
-							<path d="M 32.874151,13.159762 C 113.43797,70.166077 159.55991,81.31349 159.55991,81.31349 c 0,0 -11.51546,72.89712 -85.793522,64.94649 C 66.063712,145.4355 11.483906,129.59916 3.4745038,81.31349 -4.534898,33.027819 32.874151,13.159762 32.874151,13.159762 Z">
-						</svg>
-					</div>
-					<div class="answer-field add-field a-f-14" data-drag="2">
-						<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
-							<path d="m 13.363476,47.63753 c 0,0 76.331824,9.513786 138.367334,-18.897855 0,0 33.76794,38.239993 -1.52534,82.240735 C 137.32325,127.04089 85.771057,155.91983 42.072023,126.60618 -1.9466876,97.078087 13.363476,47.63753 13.363476,47.63753 Z">
-						</svg>
-					</div>
-					<div class="answer-field add-field a-f-15" data-drag="5">
-						<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
-							<path d="m 11.528274,95.349702 c 0,0 61.259888,-30.547406 117.172616,-88.2574405 0,0 43.66282,18.0193965 40.06548,66.9017845 C 167.54398,90.604462 144.53118,150.86729 87.312499,152.04613 29.69225,153.23324 11.528274,95.349702 11.528274,95.349702 Z">
-						</svg>
-					</div>
-					<div class="answer-field add-field a-f-16" data-drag="3">
-						<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
-							<path d="m 127.18899,39.787202 c 0,0 -20.22943,-30.1412878 -48.00298,-24.568452 -57.766134,11.590925 -56.322027,64.788926 -55.751486,69.169643 6.018965,46.214667 49.325892,52.349697 49.325892,52.349697 0,0 13.050642,-52.842411 54.428574,-96.950888 z">
-						</svg>
-					</div>
-					<div class="answer-field add-field a-f-17" data-drag="4">
-						<svg class="svg-dash" viewBox="-35 -5 250 250" preserveAspectRatio="xMidYMin slice">
-							<path d="m 14.552083,130.50149 c 0,0 -23.3681846,-55.473339 29.104166,-91.092265 31.779779,-21.572534 86.267061,-6.205014 103.376491,13.607144 33.8136,39.155049 9.82738,77.107141 9.82738,77.107141 0,0 -67.486842,-13.58582 -142.308037,0.37798 z">
-						</svg>
-					</div>
-
-
-					<div class="interaction">
-						<div class="interaction-wrapper">
-							<div class="add-element">
-								<div class="btn-add d-n-d op-n" style="background-image: url(img/ch/ch5.png);" data-drag="5"></div>
-								<div class="btn-add d-n-d op-n" style="background-image: url(img/ch/ch4.png);" data-drag="4"></div>
-								<div class="btn-add d-n-d op-n" style="background-image: url(img/ch/ch3.png);" data-drag="3"></div>
-								<div class="btn-add d-n-d op-n" style="background-image: url(img/ch/ch2.png);" data-drag="2"></div>
-								<div class="btn-add d-n-d" style="background-image: url(img/ch/ch1.png);" data-drag="1"></div>
 							</div>
 						</div>
+
+
+						<div class="btn-dad draggable" style="background-image: url(img/ch/ch5.png);" data-drag="5"></div>
+						<div class="btn-dad draggable" style="background-image: url(img/ch/ch4.png);" data-drag="4"></div>
+						<div class="btn-dad draggable" style="background-image: url(img/ch/ch3.png);" data-drag="3"></div>
+						<div class="btn-dad draggable" style="background-image: url(img/ch/ch2.png);" data-drag="2"></div>
+						<div class="btn-dad draggable" style="background-image: url(img/ch/ch1.png);" data-drag="1"></div>
+
+
 					</div>
 
 				</div>
-
-				<div class="int-item">
-					<a href="um://page/05">
-						<svg class="next-global-page big-small" viewBox="-20 -35 200 200" preserveAspectRatio="xMidYMin slice">
-							<path d="m 66.676294,9.7758998 43.591646,0.3401712 51.19571,51.782739 -51.94858,51.40476 H 67.353895 L 105.26637,74.793549 1.0690781,75.166291 V 47.063241 L 105.26637,46.793549 Z">
-						</svg>
-					</a>
-				</div>
-
-
-
-
-				<!-- 	<div class="height-img">
-					<img class="img-resp" src="img/01.jpg" alt="">
-				</div> -->
 			</div>
 
-			<div class="interactions interaction-adj-height">
-
-
-
-				<div class="interaction">
-
-				</div>
-
-				<div class="interaction">
-
-				</div>
-
-				<div class="interaction">
-
-				</div>
-
+			<div class="item">
+				1
 			</div>
 
-		</section>
 
-		<section class="audio-files" style="display: flex; flex-direction: column;">
-			<audio class="audio-question" id="fist-audio">
-				<source src="audio/2-01.mp3" type="audio/mpeg">
+
+		</div>
+
+		<div class="progress">
+			<div class="dots-items">
+				<div class="dots-wrapper">
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<section class="audio-files" style="display: flex; flex-direction: column;">
+		<audio class="audio-question" id="fist-audio">
+			<source src="audio/2-04.mp3" type="audio/mpeg">
+		</audio>
+
+	</section>
+
+
+
+
+	<section class="audio-files" style="display: flex; flex-direction: column;">
+		<div class="corect-audio-with-boom">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-01.mp3" type="audio/mpeg">
 			</audio>
-			<audio class="audio-question">
-				<source src="audio/2-02.mp3" type="audio/mpeg">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-02.mp3" type="audio/mpeg">
 			</audio>
-			<audio class="audio-question">
-				<source src="audio/2-03.mp3" type="audio/mpeg">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-03.mp3" type="audio/mpeg">
 			</audio>
-			<audio class="audio-question">
-				<source src="audio/2-04.mp3" type="audio/mpeg">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-04.mp3" type="audio/mpeg">
 			</audio>
-		</section>
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-05.mp3" type="audio/mpeg">
+			</audio>
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/positive/yes-06.mp3" type="audio/mpeg">
+			</audio>
+		</div>
+
+		<div class="wrong-audio-with-boom">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/negative/no-01.mp3" type="audio/mpeg">
+			</audio>
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/negative/no-02.mp3" type="audio/mpeg">
+			</audio>
+		</div>
 
 
 
+		<div class="final-audio">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/final.mp3" type="audio/mpeg">
+			</audio>
+		</div>
 
-		<section class="audio-files" style="display: flex; flex-direction: column;">
-			<div class="corect-audio">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct1.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct2.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct3.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct4.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct5.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/correct6.mp3" type="audio/mpeg">
-				</audio>
-			</div>
+		<div class="click-audio">
+			<audio class="audio-answer">
+				<source src="../shares/answer_sound/click.mp3" type="audio/mpeg">
+			</audio>
+		</div>
 
-			<div class="wrong-audio">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/wrong1.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/wrong2.mp3" type="audio/mpeg">
-				</audio>
-			</div>
+	</section>
 
 
-
-
-
-			<div class="corect-audio-with-boom">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-01.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-02.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-03.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-04.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-05.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/positive/yes-06.mp3" type="audio/mpeg">
-				</audio>
-			</div>
-
-			<div class="wrong-audio-with-boom">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/negative/no-01.mp3" type="audio/mpeg">
-				</audio>
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/negative/no-02.mp3" type="audio/mpeg">
-				</audio>
-			</div>
-
-
-
-
-
-			<div class="final-audio">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/final.mp3" type="audio/mpeg">
-				</audio>
-			</div>
-
-			<div class="click-audio">
-				<audio class="audio-answer">
-					<source src="../shares/answer_sound/click.mp3" type="audio/mpeg">
-				</audio>
-			</div>
-
-		</section>
-
-		<section class="dots-items">
-			<div class="dots-wrapper">
-				<div class="dot active a-color">
-
-				</div>
-				<div class="dot">
-
-				</div>
-				<div class="dot">
-
-				</div>
-				<div class="dot">
-
-				</div>
-
-				<div class="progress">
-
-				</div>
-			</div>
-
-		</section>
-
-
-
-
-
-
-	</div>
-
-
-
-
-
-	<script src="interactive.js"></script>
-	<script src="plugins/draggabilly.pkgd.min.js"></script>
-	<script src="plugins/video-animation/idel-active.js"></script>
-
+	<script src="../shares/plugins/DragAndDrop/interact.min.js"></script>
+	<script src="../shares/interactive.js"></script>
 
 
 
 	<script>
-		var audioFirst = new VideoAnimation({
-			selector: 'fist-audio',
-			startTime: 0,
-			loop: false
+		interact('.draggable')
+			.draggable({
+				inertia: true,
+				// enable autoScroll
+				autoScroll: true,
+
+				// call this function on every dragmove event
+				onmove: dragMoveListener,
+				// call this function on every dragend event
+				onend: function (event) {
+
+				}
+			});
+
+		interact('.dropzone').dropzone({
+			// only accept elements matching this CSS selector
+			accept: '.draggable',
+			// Require a 75% element overlap for a drop to be possible
+			overlap: 0.75,
+
+			ondropactivate: function (event) {
+
+			},
+			ondragenter: function (event) {
+				var draggableElement = event.relatedTarget,
+					dropzoneElement = event.target;
+
+				// Действия при наведении на dropzone
+				dropzoneElement.classList.add('accent-svg');
+				draggableElement.classList.add('can-drop');
+			},
+			ondragleave: function (event) {
+				// Действия при уходе с dropzone
+				event.target.classList.remove('accent-svg', 'red-svg', 'green-svg');
+				event.relatedTarget.classList.remove('can-drop');
+			},
+			ondrop: function (event) {
+				// Действия при сбросе на dropzone
+				var draggableElement = event.relatedTarget,
+					dropzoneElement = event.target;
+				if (draggableElement.getAttribute('data-drag') === dropzoneElement.getAttribute('data-drag')) {
+					dropzoneElement.classList.add('green-svg');
+					dragAndDrop.playYes();
+				} else {
+					dropzoneElement.classList.add('red-svg');
+					dragAndDrop.playNo();
+				}
+			},
+			ondropdeactivate: function (event) {
+
+			}
 		});
 
+		function dragMoveListener(event) {
+			var target = event.target,
+				// keep the dragged position in the data-x/data-y attributes
+				x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+				y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
+			// translate the element
+			target.style.webkitTransform =
+				target.style.transform =
+				'translate(' + x + 'px, ' + y + 'px)';
 
-		var draggableElems = document.querySelectorAll('.d-n-d');
-
-		var draggies = []
-
-		for (var i = 0; i < draggableElems.length; i++) {
-			var draggableElem = draggableElems[i];
-			var draggie = new
-			Draggabilly(draggableElem, {});
-			draggies.push(draggie);
+			// update the posiion attributes
+			target.setAttribute('data-x', x);
+			target.setAttribute('data-y', y);
 		}
+
+		// this is used later in the resizing and gesture demos
+		window.dragMoveListener = dragMoveListener;
 	</script>
 
 </body>

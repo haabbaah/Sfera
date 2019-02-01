@@ -4,22 +4,28 @@
 
 class Engine {
 	constructor() {
+		/* Кнопки управления */
 		this.prev = document.querySelector('.btn-click-prev'); // Селектор кнопки назад
 		this.restart = document.querySelector('.btn-click-start'); // Селектор кнопки перезагрузить
 		this.next = document.querySelector('.btn-click-next'); // Селектор кнопки вперед
 		this.changeField = document.querySelector('.interactive-field'); // Селектор меняющегося поля
 
-		this.dots = document.querySelectorAll('.progress .dot');
-		this.progressLine = document.querySelector('.progress .progress-line');
-		this.path = parseInt(window.getComputedStyle(document.querySelector('.dots-wrapper')).width) / (this.dots.length - 1);
+		/* Пагинация */
+		this.dots;
+		this.widthProgressLine;
+		this.progressLine;
+		this.path;
 		this.progressWidth = 0;
 
+		/* Информация о страницах */
 		this._allPages = this.changeField.children.length; //Количество страниц
 		this._currentPage = 0; //Текущая страница
 
+		/* Аудио */
 		this.audioYes = document.querySelectorAll('.corect-audio-with-boom .audio-answer');
 		this.audioNo = document.querySelectorAll('.wrong-audio-with-boom .audio-answer');
 		this.allAudio = document.querySelectorAll('audio');
+		this.questionAudio = document.querySelectorAll('.audio-question');
 	}
 
 	showFirstElement() { //Показать первый дочерний элемент
@@ -43,13 +49,13 @@ class Engine {
 				this.prev.classList.add('d-n'); //Скрываем кнопку назад
 			}
 			this._currentPage--;
+			this.playQuestion();
 			this.paginationPrev();
 		}
-			console.log(this._currentPage);
 	}
 
 	reloadPage() { //Перезагрузить страницу
-
+		this.playQuestion();
 	}
 
 	showNextPage() { //Показать следущую страницу
@@ -70,35 +76,65 @@ class Engine {
 			if (this._currentPage === allPages - 1) {
 				this.next.classList.add('d-n'); //Скрываем кнопку вперед
 			}
+			this.playQuestion();
 			this.paginationNext();
+
 		}
-		console.log(this._currentPage);
+	}
+
+	creatPagination() { //Создание пагинации
+		let wrapper = document.querySelector('.dots-wrapper');
+		let dotHTML = '';
+		for (let k = 1; k < this._allPages; k++) {
+			if (k === 1) {
+				dotHTML += '<div class="dot active a-color"></div>';
+			}
+			dotHTML += '<div class="dot"></div>';
+		}
+		dotHTML += '<div class="progress-line"></div>';
+		wrapper.insertAdjacentHTML("afterBegin", dotHTML);
+
+		this.dots = document.querySelectorAll('.progress .dot');
+		this.widthProgressLine = parseFloat(window.getComputedStyle(document.querySelector('.dots-wrapper')).width);
+		this.progressLine = document.querySelector('.progress .progress-line');
+		this.path = this.widthProgressLine / (this.dots.length - 1);
 	}
 
 	paginationPrev() { //Пагинация назад
 		this.dots[this._currentPage].classList.add('active', 'a-color');
 		this.dots[this._currentPage].nextElementSibling.classList.remove('active', 'a-color');
 		this.progressWidth -= this.path;
-		this.progressLine.style.width = (this.progressWidth * 98) / parseInt(window.getComputedStyle(document.querySelector('.dots-wrapper')).width) + '%';
+		if (this.progressWidth < 0) {
+			this.progressWidth = 0;
+		}
+		this.progressLine.style.width = (this.progressWidth * 98) / this.widthProgressLine + '%';
 	}
 
 	paginationNext() { //Пагинация вперед
 		this.dots[this._currentPage].classList.add('active', 'a-color');
 		this.dots[this._currentPage].previousElementSibling.classList.remove('active');
 		this.progressWidth += this.path;
-		this.progressLine.style.width = (this.progressWidth * 98) / parseInt(window.getComputedStyle(document.querySelector('.dots-wrapper')).width) + '%';
+		this.progressLine.style.width = (this.progressWidth * 98) / this.widthProgressLine + '%';
 	}
 
-	playYes() { // Запустить случайное аудио с равильным ответом boom
+	playYes() { // Запустить случайное аудио с правильным ответом 
 		let randomAudio = this.randomInteger(0, this.audioYes.length - 1);
 		this.stopAllAudio();
 		this.audioYes[randomAudio].play();
 	}
 
-	playNo() { // Запустить случайное аудио с неправильным ответом boom
+	playNo() { // Запустить случайное аудио с неправильным ответом 
 		let randomAudio = this.randomInteger(0, this.audioNo.length - 1);
 		this.stopAllAudio();
 		this.audioNo[randomAudio].play();
+	}
+
+	playQuestion() { // Запустить аудио с вопросом
+		this.stopAllAudio();
+		if (!this.questionAudio[this._currentPage]) { //Если аудиофайл отсутствует
+			return;
+		}
+		this.questionAudio[this._currentPage].play();
 	}
 
 	stopAllAudio() { //Остановить все аудио на странице
@@ -139,12 +175,12 @@ class Answers extends Engine {
 		this.answer = document.querySelectorAll('.answer-field');
 	}
 
-	checkAnswer(click) {
+	checkAnswer(click) { //Проверка вопроса
 		if (click.target.classList.contains('answer-yes')) {
 			this.playYes();
 			setTimeout(() => {
 				field.showNextPage();
-			}, 200);
+			}, 2000);
 		} else {
 			this.playNo();
 		}
@@ -152,10 +188,20 @@ class Answers extends Engine {
 }
 
 
+class DragAndDrop extends Engine {
+	constructor() {
+		super();
+	}
+
+}
+
+
 
 let field = new Engine();
 
 let answersField = new Answers();
+
+let dragAndDrop = new DragAndDrop();
 
 
 
@@ -176,7 +222,6 @@ let answersField = new Answers();
 		if (event.targetTouches.length == 1) {}
 		field.hoverEffect.call(this, 'hover-nav-svg', 200);
 		field.showPrevPage();
-		//field.paginationPrev();
 	}, false);
 
 	field.restart.addEventListener('touchstart', function (event) { //Клик на кнопку перезагрузить
@@ -190,7 +235,6 @@ let answersField = new Answers();
 		if (event.targetTouches.length == 1) {
 			field.hoverEffect.call(this, 'hover-nav-svg', 200);
 			field.showNextPage();
-			//field.paginationNext();
 		}
 	}, false);
 
@@ -205,6 +249,7 @@ let answersField = new Answers();
 
 
 	field.showFirstElement();
+	field.creatPagination();
 })();
 
 
