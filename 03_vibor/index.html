@@ -72,7 +72,7 @@
 			<div class="item">
 				6
 			</div>
-	
+
 
 
 		</div>
@@ -155,7 +155,26 @@
 
 
 	<script src="../shares/interactive.js"></script>
+
 	<script>
+		let answersField = new Answers();
+
+
+		field.changeField.addEventListener('touchstart', function (event) { //Смена цвета клик на видео
+			if (event.targetTouches.length == 1) {
+				let target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('answer-field')) {
+						// нашли элемент, который нас интересует!
+						answersField.checkAnswer(event.targetTouches[0]);
+						answersField.opacityEffect.call(target, 300);
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
+
 		/* 	var audioFirst = new VideoAnimation({
 			selector: 'fist-audio',
 			startTime: 0,

@@ -26,10 +26,22 @@ class Engine {
 		this.audioNo = document.querySelectorAll('.wrong-audio-with-boom .audio-answer');
 		this.allAudio = document.querySelectorAll('audio');
 		this.questionAudio = document.querySelectorAll('.audio-question');
+
+		/* Видео */
+		this.allVideo = document.querySelectorAll('video');
+
+		/* Свойства для перезагрузки страницы */
+		this.arrReloadPage = [];
+		/* Свойства для перезагрузки страницы  end*/
+
 	}
 
 	showFirstElement() { //Показать первый дочерний элемент
 		this.changeField.firstElementChild.classList.add('d-b');
+
+		for (let k = 0; k < this.changeField.children.length; k++) {
+			this.arrReloadPage.push(this.changeField.children[k].cloneNode(true));
+		}
 	}
 
 	showPrevPage() { //Показать предыдущую страницу
@@ -49,13 +61,26 @@ class Engine {
 				this.prev.classList.add('d-n'); //Скрываем кнопку назад
 			}
 			this._currentPage--;
-			this.playQuestion();
+			//this.playQuestion();
+			this.stopAllAudio();
 			this.paginationPrev();
 		}
 	}
 
 	reloadPage() { //Перезагрузить страницу
+		this.stopAllAudio();
 		this.playQuestion();
+
+		this.changeField.replaceChild(this.arrReloadPage[this._currentPage], this.changeField.children[this._currentPage]);
+		this.addClassOneElement.call(this.changeField.children[this._currentPage], this.changeField.children, 'd-b');
+
+
+		this.arrReloadPage[this._currentPage] = this.changeField.children[this._currentPage].cloneNode(true); //Обновляем клонируемое значение
+
+		/* 	let dynamicMethod = this.changeField.children[this._currentPage].getAttribute('data-reload-options');
+			if (dynamicMethod) {
+				this[dynamicMethod](); //Вызов метода, который добавляется в "item"
+			} */
 	}
 
 	showNextPage() { //Показать следущую страницу
@@ -76,6 +101,7 @@ class Engine {
 			if (this._currentPage === allPages - 1) {
 				this.next.classList.add('d-n'); //Скрываем кнопку вперед
 			}
+			this.stopAllAudio();
 			this.playQuestion();
 			this.paginationNext();
 
@@ -157,6 +183,32 @@ class Engine {
 		}, time);
 	}
 
+	addClassOneElement(element, cssClass) { //Добавить класс одному элементу, а у других убрать
+		let addElement;
+		if (typeof element === "string") {
+			addElement = document.querySelectorAll(element);
+		} else {
+			addElement = element;
+		}
+		for (let k = 0; k < addElement.length; k++) {
+			addElement[k].classList.remove(cssClass);
+		}
+		this.classList.add(cssClass);
+	}
+
+	removeClassOneElement(element, cssClass) { //Удалить класс одному элементу, а  другим добавить
+		let removeElement;
+		if (typeof element === "string") {
+			removeElement = document.querySelectorAll(element);
+		} else {
+			removeElement = element;
+		}
+		for (let k = 0; k < removeElement.length; k++) {
+			removeElement[k].classList.add(cssClass);
+		}
+		this.classList.remove(cssClass);
+	}
+
 	opacityEffect(time) { //Сделать появление и исчезновение
 		this.style.opacity = '1';
 		setTimeout(() => {
@@ -165,7 +217,75 @@ class Engine {
 		}, time);
 	}
 
+	stopAllVideo() { //Остановить все видео на странице
+		for (let k = 0; k < this.allVideo.length; k++) {
+			this.allVideo[k].currentTime = 0;
+			this.allVideo[k].pause();
+		}
+	}
+
+	playThisVideo() { //Запустить это видео
+		this.pause();
+		this.currentTime = 0;
+		this.play();
+	}
+
+	playVideoInOrder(elements) { //Проиграть видео по порядку
+		this.stopAllVideo();
+		let element = document.querySelectorAll(elements);
+		let videoCounter = 1;
+		for (let k = 0; k < element.length; k++) {
+			element[k].addEventListener('ended', function (event) {
+				element[videoCounter].play();
+				videoCounter++;
+			}, false);
+		}
+		element[0].play();
+	}
+
+
+
+
+
+
+
+
+
+	/* Методы возврата в первоначальное положение */
+	reloadDragAndDropDotted() { //Возврат Перетаскивание на нужные места
+		let btnDaD = document.querySelectorAll('.btn-dad');
+		let dropzone = document.querySelectorAll('.dropzone');
+		for (let d = 0; d < btnDaD.length; d++) {
+			btnDaD[d].classList.add('draggable', 'op');
+			btnDaD[d].classList.remove('check-drag', 'transforn-n');
+			btnDaD[d].removeAttribute('data-x');
+			btnDaD[d].removeAttribute('data-y');
+			btnDaD[d].removeAttribute('style');
+			if (d === btnDaD.length - 1) {
+				btnDaD[d].classList.remove('op');
+			}
+		}
+		for (let m = 0; m < dropzone.length; m++) {
+			dropzone[m].classList.remove('op', 'accent-svg', 'green-svg');
+		}
+
+	}
+
+	reloadChangeColor() { //Возврат Смена цвета
+		let btnChange = document.querySelectorAll('.btn-change');
+		let changeVideo = document.querySelectorAll('.change-video');
+
+		console.log(changeVideo.parentElement);
+
+		/* for (let k = 0; k < btnChange.length; k++) {
+			btnChange[k].classList.remove('big-btn');
+		}
+
+		this.removeClassOneElement.call(changeVideo[changeVideo.length - 1], changeVideo, 'd-n'); */
+	}
+	/* Методы возврата в первоначальное положение end */
 }
+
 
 
 
@@ -188,36 +308,188 @@ class Answers extends Engine {
 }
 
 
+
+
+
 class DragAndDrop extends Engine {
 	constructor() {
 		super();
 	}
 
+	showDadElements() { // Появление элементов по очереди
+		let parent = this.parentElement;
+		let children = parent.children;
+		if (!this.classList.contains('check-drag')) {
+			for (let d = 0; d < children.length; d++) {
+				if (!children[d].classList.contains('op')) {
+					children[d].previousElementSibling.classList.remove('op');
+				}
+			}
+		}
+		this.classList.add('check-drag');
+	}
 }
+
+
+class DragAndDropDotted extends DragAndDrop {
+	constructor() {
+		super();
+		this.btnDad = document.querySelectorAll('.btn-dad-1');
+		this.btnDadAll = document.querySelectorAll('.btn-dad');
+		this.prevDropzone;
+		this.animationVideo = document.querySelectorAll('.video-dad');
+		this.sumTrueAll = this.btnDadAll.length; // Количество верных ответов всего
+		this.sumTrueClicks = 0; // Количество верных ответов при клике
+	}
+
+	checkUnderElementMove() { //Выделение дропзоны при наведении
+		this.classList.add('pointer-e');
+		let elemUnder = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		let dropzone = elemUnder.closest('.dropzone');
+		if (dropzone) {
+			dropzone.classList.add('accent-svg');
+			this.prevDropzone = dropzone;
+		} else if (this.prevDropzone) {
+			this.prevDropzone.classList.remove('accent-svg');
+		}
+		this.classList.remove('pointer-e');
+	}
+
+	checkUnderElementEnd(that) { //Проверка совподает ли дропзона с перетаскиваемым элементом
+		that.classList.add('pointer-e');
+		let elemUnder = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		let dropzone = elemUnder.closest('.dropzone');
+		if (dropzone) {
+			if (dropzone.getAttribute('data-drag') === that.getAttribute('data-drag')) {
+				dropzone.classList.add('green-svg');
+				that.classList.add('transforn-n');
+				that.style.top = that.getAttribute('data-top') + '%';
+				that.style.left = that.getAttribute('data-left') + '%';
+				this.sumTrueClicks++;
+				this.playYes();
+				dropzone.classList.add('op');
+				this.checkAllElementsAtPlase();
+				this.playVideoInOrder('.video-dad');
+			} else {
+				dropzone.classList.add('red-svg');
+				this.playNo();
+				setTimeout(() => {
+					dropzone.classList.remove('red-svg');
+				}, 1000);
+			}
+		}
+		that.classList.remove('pointer-e');
+	}
+
+	checkAllElementsAtPlase() { //Проверка, все ли элементы на своих местах и переход на след. страницу
+			if (this.sumTrueAll === this.sumTrueClicks) {
+				this.sumTrueClicks = 0;
+				setTimeout(() => {
+					field.showNextPage();
+				}, 2500);
+			}
+	}
+}
+
+
+
+class Matches extends Engine {
+	constructor() {
+		super();
+		this.firstMatches = {};
+		this.secondMatches = '';
+		this.allMatches = false;
+	}
+
+	addValueInFirst(that, val) { //Задаем значение для первого элемента
+		this.firstMatches.that = that;
+		this.firstMatches.val = val;
+	}
+
+	addValueInSecond(val) { //Задаем значение для второго элемента
+		this.secondMatches = val;
+	}
+
+	checkMatches() { // Проверка совпадают ли значения элементов
+		if ((this.firstMatches.val === this.secondMatches) && this.firstMatches.val != '') {
+			this.allMatches = true;
+		} else {
+			this.allMatches = false;
+		}
+	}
+}
+
+class ChangeColor extends Matches {
+	constructor() {
+		super();
+		this.allVideoChange = document.querySelectorAll('.interactive-field .change-video');
+		this.allBtnChange = document.querySelectorAll('.interactive-field .btn-change');
+		this.parentVideo = '';
+		this.parentBtn = '';
+		this.arrAllMatches = [];
+		this.flagFirstClickChang = true;
+		this.sumTrueAllChange = 0; // Количество верных ответов всего
+		this.sumTrueClicksChange = 0; // Количество верных ответов при клике
+	}
+
+	addParent(that) {
+		this.parentVideo = that.parentElement;
+	}
+
+	addValueInSecond(val) { //Задаем значение для второго элемента и находим количество верных ответов всего
+		super.addValueInSecond(val);
+		if (this.flagFirstClickChang) {
+			for (let d = 0; d < this.allBtnChange.length; d++) {
+				if (this.allBtnChange[d].getAttribute('data-change') != '') {
+					this.sumTrueAllChange++;
+				}
+			}
+			this.flagFirstClickChang = false;
+		}
+	}
+
+	checkMatchesAllTrue() { // Проверка, верных ответов для перехода на др. страницу
+		if (this.sumTrueAllChange === this.sumTrueClicksChange) {
+			this.flagFirstClickChang = true;
+			this.sumTrueAllChange = 0;
+			this.sumTrueClicksChange = 0;
+			setTimeout(() => {
+				field.showNextPage();
+			}, 2500);
+		}
+	}
+
+	checkChangeElements(that) { // Проверка, подходят ли элементы друг другу
+		//let btn;
+		this.parentBtn = that.parentElement.children;
+		for (let k = 0; k < this.parentBtn.length; k++) {
+			if (this.parentBtn[k] === that) {
+				this.removeClassOneElement.call(this.parentVideo.children[k], this.parentVideo.children, 'd-n');
+				this.playThisVideo.call(this.parentVideo.children[k]);
+				this.firstMatches.val = this.parentVideo.children[k].getAttribute('data-change');
+				//btn = this.parentBtn[k];
+			}
+		}
+		this.checkMatches();
+		if (this.allMatches) {
+			this.playYes();
+			//btn.setAttribute('data-change', '');
+			this.sumTrueClicksChange++;
+			this.checkMatchesAllTrue();
+		} else {
+			this.playNo();
+		}
+	}
+}
+
 
 
 
 let field = new Engine();
 
-let answersField = new Answers();
-
-let dragAndDrop = new DragAndDrop();
-
-
-
-
 
 
 (function () { //Вешаем слушатели
-	for (let d = 0; d < answersField.answer.length; d++) {
-		answersField.answer[d].addEventListener('touchstart', function (event) { //Клик на кнопку ответ на вопрос
-			if (event.targetTouches.length == 1) {}
-			answersField.checkAnswer(event.targetTouches[0]);
-			answersField.opacityEffect.call(this, 300);
-		}, false);
-	}
-
-
 	field.prev.addEventListener('touchstart', function (event) { //Клик на кнопку назад
 		if (event.targetTouches.length == 1) {}
 		field.hoverEffect.call(this, 'hover-nav-svg', 200);
@@ -248,428 +520,13 @@ let dragAndDrop = new DragAndDrop();
 
 
 
+
+
+
+
+
+
+
 	field.showFirstElement();
 	field.creatPagination();
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* window.onload = function () {
-
-
-	'use strict';
-
-
-
-	var controlsElementsHeight = document.querySelector('.controls-adj-height');
-	var interactiveElementsHeight = document.querySelector('.interactive-adj-height');
-	var interactionElementsHeight = document.querySelector('.interaction-adj-height');
-
-	var audioQuestion = document.querySelectorAll('.audio-question');
-
-	var btnNext = document.querySelectorAll('.btn-click-next');
-	var btnPrev = document.querySelectorAll('.btn-click-prev');
-	var btnStart = document.querySelectorAll('.btn-click-start');
-	var answer = document.querySelectorAll('.answer-field');
-
-	var firstFlag = true;
-
-	var corectAudio = document.querySelectorAll('.corect-audio .audio-answer');
-	var wrongAudio = document.querySelectorAll('.wrong-audio .audio-answer');
-	var finalAudio = document.querySelectorAll('.final-audio .audio-answer');
-	var clickAudio = document.querySelectorAll('.click-audio .audio-answer');
-	var corectAudioBoom = document.querySelectorAll('.corect-audio-with-boom .audio-answer');
-	var wrongAudioBoom = document.querySelectorAll('.wrong-audio-with-boom .audio-answer');
-
-
-	var dots = document.querySelectorAll('.dots-wrapper .dot');
-	var progressDots = document.querySelector('.dots-wrapper .progress');
-	var widthContainerOfDots = window.getComputedStyle(document.querySelector('.dots-wrapper')).width;
-	var progressWidth = 0;
-	var path = parseInt(widthContainerOfDots) / (dots.length - 1);
-
-
-	var imgAnswer = document.querySelectorAll('.block-imgs img');
-
-	var scriptOfAnswer = {
-		counter: 0,
-		bool: [
-			[false, true, false],
-			[false, true, false],
-			[false, true, false],
-			[false, true, false],
-			[false, true, false],
-			[false, true, false],
-		],
-		sel: [controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight]
-	};
-
-
-
-
-	setMaxHeight(controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight);
-
-
-
-
-	(function () { //Вешаем слушатели
-		for (var l = 0; l < btnNext.length; l++) {
-			btnNext[l].addEventListener('click', function () {
-				var el = this;
-				hoverNav(el);
-				changeField();
-			});
-		}
-
-		for (var w = 0; w < btnPrev.length; w++) {
-			btnPrev[w].addEventListener('click', function () {
-				var el = this;
-				hoverNav(el);
-				changeFieldPrev();
-			});
-		}
-		for (var m = 0; m < btnStart.length; m++) {
-			btnStart[m].addEventListener('click', function () {
-				var el = this;
-				hoverNav(el);
-				playAudio();
-				resetAnswer();
-			});
-		}
-
-		for (var k = 0; k < answer.length; k++) {
-			answer[k].addEventListener('click', checkAnswer);
-		}
-
-		if (scriptOfAnswer.counter === 0) { //Скрываем предыдущую кнопку
-			hidePrev();
-		}
-
-	})()
-
-
-
-
-	function showPrev() { //Показываем предыдущую кнопку
-		btnPrev[0].classList.remove('d-n');
-	}
-
-	function showNext() { //Показываем следующую кнопку
-		btnNext[0].classList.remove('d-n');
-	}
-
-	function hidePrev() { //Скрываем предыдущую кнопку
-		btnPrev[0].classList.add('d-n');
-	}
-
-	function hideNext() { //Скрываем следующую кнопку
-		btnNext[0].classList.add('d-n');
-	}
-
-
-	function hoverNav(el) { //Ховер эффект для навигации
-		el.classList.add('hover-nav-border');
-		el.firstElementChild.classList.add('hover-nav-csg');
-		setTimeout(function () {
-			el.classList.remove('hover-nav-border');
-			el.firstElementChild.classList.remove('hover-nav-csg');
-		}, 200);
-	}
-
-
-
-
-
-
-	function playAudio() { //Запуск аудио с начала
-		audioQuestion[scriptOfAnswer.counter].currentTime = 0.0;
-		audioQuestion[scriptOfAnswer.counter].play();
-	}
-
-
-	function changeFieldStart() { //Вернуть поля в начальное положение
-		for (var i = 0; i < scriptOfAnswer.sel.length; i++) {
-
-			if (scriptOfAnswer.bool[scriptOfAnswer.counter][i]) {
-				var childElement = scriptOfAnswer.sel[i].children;
-				for (var k = 0; k < childElement.length; k++) {
-					if (childElement[k].classList.contains('op')) {
-						childElement[0].classList.add('dis', 'op');
-						childElement[k].classList.remove('dis', 'op');
-						break;
-					}
-				}
-			}
-		}
-		for (var m = 0; m < audioQuestion.length; m++) {
-			audioQuestion[m].pause();
-		}
-		scriptOfAnswer.counter = 0;
-		playAudio();
-
-		resetAnswer(); //Очищаем все ответы
-	}
-
-	function changeFieldPrev() { //Поменять поля на предыдущие
-		scriptOfAnswer.counter--;
-		for (var i = 0; i < scriptOfAnswer.sel.length; i++) {
-
-			if (scriptOfAnswer.bool[scriptOfAnswer.counter][i]) {
-				var childElement = scriptOfAnswer.sel[i].children;
-				for (var k = 0; k < childElement.length; k++) {
-					if (childElement[k].classList.contains('op')) {
-						childElement[k].previousElementSibling.classList.add('dis', 'op');
-						childElement[k].classList.remove('dis', 'op');
-						break;
-					}
-				}
-			}
-		}
-		audioQuestion[scriptOfAnswer.counter].pause();
-
-		//playAudio();
-
-		resetAnswer(); //Очищаем все ответы
-		prevDot();
-		showNext();
-		if (scriptOfAnswer.counter === 0) {
-			hidePrev();
-		}
-	}
-
-	function changeField() { //Поменять поля на следующие
-		for (var i = 0; i < scriptOfAnswer.sel.length; i++) {
-
-			if (scriptOfAnswer.bool[scriptOfAnswer.counter][i]) {
-				var childElement = scriptOfAnswer.sel[i].children;
-				for (var k = 0; k < childElement.length; k++) {
-					if (childElement[k].classList.contains('op')) {
-						childElement[k].nextElementSibling.classList.add('dis', 'op');
-						childElement[k].classList.remove('dis', 'op');
-						break;
-					}
-				}
-			}
-		}
-		audioQuestion[scriptOfAnswer.counter].pause();
-		scriptOfAnswer.counter++;
-		playAudio();
-		nextDot();
-		showPrev();
-		if (scriptOfAnswer.bool.length - 2 === scriptOfAnswer.counter) {
-			hideNext();
-		}
-	}
-
-
-	function nextDot() {
-		var counter = scriptOfAnswer.counter;
-		dots[counter].classList.add('active', 'a-color');
-		dots[counter - 1].classList.remove('active');
-		progressWidth += path;
-		progressDots.style.width = (progressWidth * 98) / parseInt(widthContainerOfDots) + '%';
-	}
-
-
-
-	function prevDot() {
-		var counter = scriptOfAnswer.counter;
-		dots[counter].classList.add('active', 'a-color');
-		dots[counter + 1].classList.remove('active', 'a-color');
-		progressWidth -= path;
-		progressDots.style.width = (progressWidth * 98) / parseInt(widthContainerOfDots) + '%';
-	}
-
-
-
-
-
-
-
-
-
-
-	function checkAnswer(e) { //Ответ на вопрос
-		this.classList.add('op');
-
-		var data = this.firstElementChild.getAttribute('data-answer');
-		var img = document.querySelector('.block-imgs img[data-answer="' + data + '"]');
-
-		img.classList.remove('animate');
-		void img.offsetWidth; // reflow hack
-		img.classList.add('animate');
-
-
-		var self = this;
-		if ((this.firstElementChild.getAttribute('src') === 'yes.png') && (scriptOfAnswer.counter == scriptOfAnswer.bool.length - 2)) {
-			
-			setTimeout(function () {
-					finalPlay();
-					changeField();
-			}, 1200);
-
-		} else if (this.firstElementChild.getAttribute('src') === 'yes.png') {
-			corectPlayBoom();
-
-			setTimeout(function () {
-				self.classList.remove('op');
-				changeField();
-			}, 2000);
-		} else {
-			wrongPlayBoom();
-
-			setTimeout(function () {
-				self.classList.remove('op');
-			}, 1000);
-		}
-	}
-
-
-
-	function corectPlay() { // Запустить случайное аудио с правильным ответом
-		var randomAudio = randomInteger(0, corectAudio.length - 1);
-		stopAllAudio();
-		corectAudio[randomAudio].play();
-	}
-
-	function wrongPlay() { // Запустить случайное аудио с неправильным ответом
-		var randomAudio = randomInteger(0, wrongAudio.length - 1);
-		stopAllAudio();
-		wrongAudio[randomAudio].play();
-	}
-
-	function finalPlay() { // Запустить случайное аудио с конечным ответом
-		var randomAudio = randomInteger(0, finalAudio.length - 1);
-		stopAllAudio();
-		finalAudio[randomAudio].play();
-	}
-
-	function clickPlay() { // Запустить случайное аудио с кликом на ответ
-		var randomAudio = randomInteger(0, clickAudio.length - 1);
-		stopAllAudio();
-		clickAudio[randomAudio].play();
-	}
-
-
-	function corectPlayBoom() { // Запустить случайное аудио с равильным ответом boom
-		var randomAudio = randomInteger(0, corectAudioBoom.length - 1);
-		stopAllAudio();
-		corectAudioBoom[randomAudio].play();
-	}
-	function wrongPlayBoom() { // Запустить случайное аудио с неправильным ответом boom
-		var randomAudio = randomInteger(0, wrongAudioBoom.length - 1);
-		stopAllAudio();
-		wrongAudioBoom[randomAudio].play();
-	}
-
-
-
-	function randomInteger(min, max) { //Случайное целое
-		var rand = min - 0.5 + Math.random() * (max - min + 1);
-		rand = Math.round(rand);
-		return rand;
-	}
-
-
-	function stopAllAudio() { //Остановить все аудио на странице
-		var allAudio = document.querySelectorAll('audio');
-		for (var k = 0; k < allAudio.length; k++) {
-			allAudio[k].currentTime = 0;
-			allAudio[k].pause();
-		}
-	}
-
-
-
-
-
-
-	function resetAnswer() { //Очистить поля с ответами
-		for (let i of imgAnswer) {
-			i.classList.remove('animate');
-		}
-
-		for (var k = 0; k < answer.length; k++) {
-			answer[k].classList.remove('op');
-		}
-	}
-
-
-	function setFirstElement() { //Показываем первые элементы
-		for (var k = 0; k < arguments.length; k++) {
-			var childElement = arguments[k].children;
-			for (var i = 0; i < childElement.length; i++) {
-				if (!(i === 0)) {
-					childElement[i].style.display = 'none';
-				} else {
-					childElement[i].classList.add('dis', 'op');
-				}
-			}
-		}
-		firstFlag = false;
-		//audioQuestion[scriptOfAnswer.counter].play(); //Запускаем первое аудио
-	}
-
-	function setDisplay() {
-		for (var k = 0; k < arguments.length; k++) {
-			var childElement = arguments[k].children;
-			for (var i = 0; i < childElement.length; i++) {
-				childElement[i].style.display = 'block';
-			}
-		}
-		setMaxHeight(controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight);
-	}
-
-	function setNextElements() {
-		for (var k = 0; k < arguments.length; k++) {
-			var childElement = arguments[k].children;
-			for (var i = 0; i < childElement.length; i++) {
-				if (!childElement[i].classList.contains('op')) {
-					childElement[i].style.display = 'none';
-				}
-			}
-		}
-	}
-
-
-	//Выравнивание элементов по высоте
-
-	function setMaxHeight() {
-		for (var i = 0; i < arguments.length; i++) {
-			var childElement = arguments[i].childNodes;
-			var maxHeight = 0;
-			for (var k = 0; k < childElement.length; k++) {
-				var heightBlock = childElement[k].clientHeight;
-				if (heightBlock > maxHeight) {
-					maxHeight = heightBlock;
-				}
-			}
-			arguments[i].style.height = maxHeight + 'px';
-		}
-		if (firstFlag) {
-			setFirstElement(controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight);
-		} else {
-			setNextElements(controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight);
-		}
-	}
-
-	window.onresize = function () {
-		//window.onload = function () {
-		setDisplay(controlsElementsHeight, interactiveElementsHeight, interactionElementsHeight);
-		//}
-	}
-	//Выравнивание элементов по высоте end
-
-
-
-}; */

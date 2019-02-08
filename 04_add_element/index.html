@@ -18,7 +18,6 @@ top: 55%;
 left: 26%;
 width: 19%;
 height: 26%;
-opacity: 1
 }
 
 .sf-2 {
@@ -26,7 +25,6 @@ top: 60%;
 left: -3%;
 width: 19%;
 height: 26%;
-opacity: 1
 }
 
 .sf-3 {
@@ -34,7 +32,6 @@ top: -17%;
 left: 33%;
 width: 19%;
 height: 26%;
-opacity: 1
 }
 
 .sf-4 {
@@ -42,7 +39,6 @@ top: 13%;
 left: 38%;
 width: 19%;
 height: 26%;
-opacity: 1
 }
 
 .sf-5 {
@@ -50,8 +46,10 @@ top: 8%;
 left: -5%;
 width: 19%;
 height: 26%;
-opacity: 1
 }
+
+
+
 
 
 	</style>
@@ -85,13 +83,12 @@ opacity: 1
 				<div class="grid">
 
 					<div class="drag-and-drop">
-
 						<div class="video-animation">
-							<video class="" width="50%" height="auto" preload="auto" poster="video/poster1.jpg" playsinline>
+							<video class="video-dad" width="50%" height="auto" preload="auto" poster="video/poster1.jpg" playsinline>
 								<source src="video/01.mp4" type="video/mp4">
 								</source>
 							</video>
-							<video class="" width="50%" height="auto" preload="auto" poster="video/poster2.jpg" playsinline>
+							<video class="video-dad" width="50%" height="auto" preload="auto" poster="video/poster2.jpg" playsinline>
 								<source src="video/02.mp4" type="video/mp4">
 								</source>
 							</video>
@@ -129,24 +126,24 @@ opacity: 1
 							</div>
 						</div>
 
-
-						<div class="btn-dad draggable" style="background-image: url(img/ch/ch5.png);" data-drag="5"></div>
-						<div class="btn-dad draggable" style="background-image: url(img/ch/ch4.png);" data-drag="4"></div>
-						<div class="btn-dad draggable" style="background-image: url(img/ch/ch3.png);" data-drag="3"></div>
-						<div class="btn-dad draggable" style="background-image: url(img/ch/ch2.png);" data-drag="2"></div>
-						<div class="btn-dad draggable" style="background-image: url(img/ch/ch1.png);" data-drag="1"></div>
-
-
+						<div class="wrapper-btn-dad">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/ch/ch5.png" data-drag="5" data-top="-14.2" data-left="37.3">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/ch/ch4.png" data-drag="4" data-top="11" data-left="-1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/ch/ch3.png" data-drag="3" data-top="15" data-left="41">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/ch/ch2.png" data-drag="2" data-top="63" data-left="1">
+							<img class="btn-dad btn-dad-1 draggable" src="img/ch/ch1.png" data-drag="1" data-top="58" data-left="29">
+						</div>
 					</div>
 
 				</div>
 			</div>
 
 			<div class="item">
-				1
+
 			</div>
+			<div class="item">
 
-
+			</div>
 
 		</div>
 
@@ -218,27 +215,76 @@ opacity: 1
 	</section>
 
 
-	<script src="../shares/plugins/DragAndDrop/interact.min.js"></script>
 	<script src="../shares/interactive.js"></script>
+
+	<script src="../shares/plugins/DragAndDrop/interact.min.js"></script>
+
 
 
 
 	<script>
+		var dragAndDropDotted = new DragAndDropDotted();
+
+
+		field.changeField.addEventListener('touchstart', function (event) { //Перетаскивание элементов
+			if (event.targetTouches.length == 1) {
+				event.preventDefault();
+				var target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('btn-dad')) {
+						// нашли элемент, который нас интересует!
+						target.addEventListener('touchend', function () { //Хак с добавлением touchend
+							dragAndDropDotted.checkUnderElementEnd(target);
+						}, false);
+						setTimeout(function () {
+							dragAndDropDotted.showDadElements.call(target);
+						}, 300)
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
+
+
+		field.changeField.addEventListener('touchmove', function (event) { //Перетаскивание элементов
+			if (event.targetTouches.length == 1) {
+				event.preventDefault();
+				var target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('btn-dad')) {
+						// нашли элемент, который нас интересует!
+						dragAndDropDotted.checkUnderElementMove.call(target);
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
+
+
+
+
+
 		interact('.draggable')
 			.draggable({
-				inertia: true,
+				//inertia: true,
 				// enable autoScroll
-				autoScroll: true,
+				restrict: {
+					restriction: '.interactive-field',
+					endOnly: true,
+				},
+				//autoScroll: true,
 
 				// call this function on every dragmove event
 				onmove: dragMoveListener,
 				// call this function on every dragend event
 				onend: function (event) {
-
+					//console.log(event.target.clientX);
 				}
 			});
 
-		interact('.dropzone').dropzone({
+		/* interact('.dropzone').dropzone({
 			// only accept elements matching this CSS selector
 			accept: '.draggable',
 			// Require a 75% element overlap for a drop to be possible
@@ -267,6 +313,9 @@ opacity: 1
 				if (draggableElement.getAttribute('data-drag') === dropzoneElement.getAttribute('data-drag')) {
 					dropzoneElement.classList.add('green-svg');
 					dragAndDrop.playYes();
+					draggableElement.style.top = draggableElement.getAttribute('data-top') + '%';
+					draggableElement.style.left = draggableElement.getAttribute('data-left') + '%';
+					draggableElement.style.transform = 'translate(0px, 0px)';
 				} else {
 					dropzoneElement.classList.add('red-svg');
 					dragAndDrop.playNo();
@@ -275,7 +324,7 @@ opacity: 1
 			ondropdeactivate: function (event) {
 
 			}
-		});
+		}); */
 
 		function dragMoveListener(event) {
 			var target = event.target,
@@ -284,8 +333,8 @@ opacity: 1
 				y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
 			// translate the element
-			target.style.webkitTransform =
-				target.style.transform =
+			//target.style.webkitTransform =
+			target.style.transform =
 				'translate(' + x + 'px, ' + y + 'px)';
 
 			// update the posiion attributes
