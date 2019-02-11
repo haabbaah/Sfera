@@ -223,7 +223,10 @@ height: 26%;
 
 
 	<script>
-		var dragAndDropDotted = new DragAndDropDotted();
+		var dragAndDropDotted = new DragAndDropDotted({
+			btnDadAllElements: '.btn-dad', // Перемещаемые элементы
+			animationVideoElements: '.video-dad' // Анимируемое/ые видео
+		});
 
 
 		field.changeField.addEventListener('touchstart', function (event) { //Перетаскивание элементов
@@ -236,9 +239,9 @@ height: 26%;
 						target.addEventListener('touchend', function () { //Хак с добавлением touchend
 							dragAndDropDotted.checkUnderElementEnd(target);
 						}, false);
-						setTimeout(function () {
-							dragAndDropDotted.showDadElements.call(target);
-						}, 300)
+						/* 		setTimeout(function () {
+									dragAndDropDotted.showDadElements.call(target);
+								}, 300) */
 						return;
 					}
 					target = target.parentNode;

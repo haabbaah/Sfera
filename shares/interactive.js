@@ -31,17 +31,17 @@ class Engine {
 		this.allVideo = document.querySelectorAll('video');
 
 		/* Свойства для перезагрузки страницы */
-		this.arrReloadPage = [];
+		this.arrReloadPage = []; //Массив для хранение всех полей
 		/* Свойства для перезагрузки страницы  end*/
 
 	}
 
 	showFirstElement() { //Показать первый дочерний элемент
-		this.changeField.firstElementChild.classList.add('d-b');
-
 		for (let k = 0; k < this.changeField.children.length; k++) {
 			this.arrReloadPage.push(this.changeField.children[k].cloneNode(true));
 		}
+
+		this.changeField.firstElementChild.classList.add('d-b');
 	}
 
 	showPrevPage() { //Показать предыдущую страницу
@@ -71,9 +71,9 @@ class Engine {
 		this.stopAllAudio();
 		this.playQuestion();
 
+
 		this.changeField.replaceChild(this.arrReloadPage[this._currentPage], this.changeField.children[this._currentPage]);
 		this.addClassOneElement.call(this.changeField.children[this._currentPage], this.changeField.children, 'd-b');
-
 
 		this.arrReloadPage[this._currentPage] = this.changeField.children[this._currentPage].cloneNode(true); //Обновляем клонируемое значение
 
@@ -225,7 +225,7 @@ class Engine {
 	}
 
 	playThisVideo() { //Запустить это видео
-		this.pause();
+		//this.pause();
 		this.currentTime = 0;
 		this.play();
 	}
@@ -243,47 +243,14 @@ class Engine {
 		element[0].play();
 	}
 
-
-
-
-
-
-
-
-
-	/* Методы возврата в первоначальное положение */
-	reloadDragAndDropDotted() { //Возврат Перетаскивание на нужные места
-		let btnDaD = document.querySelectorAll('.btn-dad');
-		let dropzone = document.querySelectorAll('.dropzone');
-		for (let d = 0; d < btnDaD.length; d++) {
-			btnDaD[d].classList.add('draggable', 'op');
-			btnDaD[d].classList.remove('check-drag', 'transforn-n');
-			btnDaD[d].removeAttribute('data-x');
-			btnDaD[d].removeAttribute('data-y');
-			btnDaD[d].removeAttribute('style');
-			if (d === btnDaD.length - 1) {
-				btnDaD[d].classList.remove('op');
-			}
-		}
-		for (let m = 0; m < dropzone.length; m++) {
-			dropzone[m].classList.remove('op', 'accent-svg', 'green-svg');
-		}
-
+	getCoords(elem) { //Получение координат элемента
+		let box = elem.getBoundingClientRect();
+		return {
+			top: box.top + pageYOffset,
+			left: box.left + pageXOffset
+		};
 	}
 
-	reloadChangeColor() { //Возврат Смена цвета
-		let btnChange = document.querySelectorAll('.btn-change');
-		let changeVideo = document.querySelectorAll('.change-video');
-
-		console.log(changeVideo.parentElement);
-
-		/* for (let k = 0; k < btnChange.length; k++) {
-			btnChange[k].classList.remove('big-btn');
-		}
-
-		this.removeClassOneElement.call(changeVideo[changeVideo.length - 1], changeVideo, 'd-n'); */
-	}
-	/* Методы возврата в первоначальное положение end */
 }
 
 
@@ -322,7 +289,12 @@ class DragAndDrop extends Engine {
 		if (!this.classList.contains('check-drag')) {
 			for (let d = 0; d < children.length; d++) {
 				if (!children[d].classList.contains('op')) {
-					children[d].previousElementSibling.classList.remove('op');
+					if (children[d].previousElementSibling) {
+						children[d].previousElementSibling.classList.remove('op');
+					} else {
+						return;
+					}
+
 				}
 			}
 		}
@@ -332,14 +304,14 @@ class DragAndDrop extends Engine {
 
 
 class DragAndDropDotted extends DragAndDrop {
-	constructor() {
+	constructor(options) {
 		super();
-		this.btnDad = document.querySelectorAll('.btn-dad-1');
-		this.btnDadAll = document.querySelectorAll('.btn-dad');
+		this.btnDadAll = document.querySelectorAll(options.btnDadAllElements);
+		this.btnDadAllSelector = options.btnDadAllElements;
 		this.prevDropzone;
-		this.animationVideo = document.querySelectorAll('.video-dad');
+		this.animationVideo = document.querySelectorAll(options.animationVideoElements);
+		this.animationVideoSelector = options.animationVideoElements;
 		this.sumTrueAll = this.btnDadAll.length; // Количество верных ответов всего
-		this.sumTrueClicks = 0; // Количество верных ответов при клике
 	}
 
 	checkUnderElementMove() { //Выделение дропзоны при наведении
@@ -365,11 +337,12 @@ class DragAndDropDotted extends DragAndDrop {
 				that.classList.add('transforn-n');
 				that.style.top = that.getAttribute('data-top') + '%';
 				that.style.left = that.getAttribute('data-left') + '%';
-				this.sumTrueClicks++;
+				that.setAttribute('data-check', '');
+				this.showDadElements.call(that);
 				this.playYes();
 				dropzone.classList.add('op');
 				this.checkAllElementsAtPlase();
-				this.playVideoInOrder('.video-dad');
+				this.playVideoInOrder(this.animationVideoSelector);
 			} else {
 				dropzone.classList.add('red-svg');
 				this.playNo();
@@ -382,14 +355,76 @@ class DragAndDropDotted extends DragAndDrop {
 	}
 
 	checkAllElementsAtPlase() { //Проверка, все ли элементы на своих местах и переход на след. страницу
-			if (this.sumTrueAll === this.sumTrueClicks) {
-				this.sumTrueClicks = 0;
-				setTimeout(() => {
-					field.showNextPage();
-				}, 2500);
+		let btnDad = document.querySelectorAll(this.btnDadAllSelector);
+		let arrBtnDadCheck = [];
+		for (let k = 0; k < btnDad.length; k++) {
+			if (btnDad[k].hasAttribute('data-check')) {
+				arrBtnDadCheck.push('1');
 			}
+		}
+		if (this.sumTrueAll === arrBtnDadCheck.length) {
+			setTimeout(() => {
+				field.showNextPage();
+			}, 2500);
+		}
 	}
 }
+
+
+
+
+class DragAndDropInvisible extends DragAndDrop {
+	constructor(options) {
+		super();
+		this.dadElements = document.querySelectorAll(options.dadElements); //Перетаскиваемые элементы
+		this.fieldForDadElements = document.querySelectorAll(options.fieldForDadElements); //Поля на которые перетаскиваются элементы
+		this.actionAnimation = document.querySelectorAll(options.actionAnimation); //Анимируемые выдео
+		this.actionAnimationSelector = options.actionAnimation;
+		this.dadElementsSelector = options.dadElements;
+		this.fieldSelector = options.fieldForDadElements;
+		this.arrFieldCords = [];
+	}
+
+	checkUnderElement(that) { //Проверка совподает ли дропзона с перетаскиваемым элементом
+		that.classList.add('pointer-e');
+		let elemUnder = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		while (elemUnder.classList.contains('draggable')) {
+			elemUnder.classList.add('pointer-e');
+			elemUnder = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+		}
+		let dropzone = elemUnder.closest(this.fieldSelector);
+		if (dropzone) {
+			if (dropzone.getAttribute('data-drag') === that.getAttribute('data-drag')) {
+				this.playYes();
+				this.playThisVideo.call(this.findDataDrag(dropzone.getAttribute('data-drag')));
+			} else {
+				this.playNo();
+			}
+		}
+
+
+
+		for (const iterator of document.querySelectorAll(this.dadElementsSelector)) {
+			iterator.classList.remove('pointer-e');
+		}
+
+		/* 	for (let k = 0; k < this.dadElements.length; k++) {
+				this.dadElements[k].classList.remove('pointer-e');
+			} */
+	}
+
+	findDataDrag(data) {
+		let actionAnimation = document.querySelectorAll(this.actionAnimationSelector);
+		for (let k = 0; k < actionAnimation.length; k++) {
+			if (actionAnimation[k].getAttribute('data-drag') === data) {
+				return actionAnimation[k];
+			}
+		}
+	}
+
+
+}
+
 
 
 
@@ -420,10 +455,10 @@ class Matches extends Engine {
 }
 
 class ChangeColor extends Matches {
-	constructor() {
+	constructor(options) {
 		super();
-		this.allVideoChange = document.querySelectorAll('.interactive-field .change-video');
-		this.allBtnChange = document.querySelectorAll('.interactive-field .btn-change');
+		this.allVideoChange = document.querySelectorAll(options.changeVideo);
+		this.allBtnChange = document.querySelectorAll(options.btnChange);
 		this.parentVideo = '';
 		this.parentBtn = '';
 		this.arrAllMatches = [];

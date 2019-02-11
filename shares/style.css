@@ -260,11 +260,11 @@ table::after {
 	height: 90%;
 }
 
-/* * {
+* {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	cursor: none;
-} */
+}
 
 *:active,
 *:focus {
@@ -578,7 +578,6 @@ img {
 .wrapper-dad-field .dad-field {
 	width: 14vw;
 	height: 14vw;
-	margin: 0 3%;
 	border: 0.5vw solid #fff;
 	border-radius: 3vw;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .5);
@@ -616,7 +615,7 @@ img {
 	justify-content: space-between;
 }
 
-.color-change .wrapp-video .video-item{
+.color-change .wrapp-video .video-item {
 	padding: 5%;
 }
 
@@ -649,9 +648,23 @@ img {
 
 
 
-/*  */
+/* Перетаскивание на невидимые поля */
 
-/*  end */
+.drag-and-drop-invisible .video-animation {
+	display: flex;
+	justify-content: space-between;
+}
+
+.drag-and-drop-invisible .video-animation .video-item{
+padding: 5%;
+}
+
+/* Перетаскивание на невидимые поля end */
+
+
+
+
+
 /*  */
 
 /*  end */

@@ -12,7 +12,7 @@
 				<key>source</key>
 				<string>index.html</string>
 				<key>bounces</key>
-				<true/>
+				<false/>
 				<key>scalesPageToFit</key>
 				<true/>
 				<key>zoom</key>

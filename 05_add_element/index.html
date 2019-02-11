@@ -65,6 +65,54 @@ background-image: url(img/btn/btn3.png);
 background-image: url(img/btn/btn4.png);
 }
 
+
+.wrapper-dad-field  {
+margin: 0;
+}
+
+.btn-dad-1 {
+position: absolute;
+top: 66%;
+left: 34%;
+width: 6%;
+}
+
+.btn-dad-2 {
+position: absolute;
+top: 62.5%;
+left: 58%;
+width: 10%;
+}
+
+.wrapper-dad-field{
+	position: absolute;
+	top: 61.5%;
+	left: 0%;
+	width: 100%;
+}
+
+.padding-hack{
+position: relative;
+width: 20%;
+margin: 0 3%;
+}
+.padding-hack::before{
+content: '';
+display: block;
+padding-top: 100%;
+}
+
+.wrapper-dad-field .dad-field {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+}
+
+
 	</style>
 </head>
 
@@ -92,9 +140,7 @@ background-image: url(img/btn/btn4.png);
 		</div>
 
 		<div class="interactive-field">
-			<div class="item">
 
-			</div>
 
 			<div class="item">
 				<div class="grid">
@@ -172,6 +218,75 @@ background-image: url(img/btn/btn4.png);
 					</div>
 				</div>
 			</div>
+
+
+			<div class="item">
+				<div class="grid">
+					<div class="drag-and-drop-invisible">
+
+						<div class="video-animation">
+							<div class="video-item" data-drag="2">
+								<video class="video-invisible" data-drag="2" width="100%" height="auto" preload="auto" poster="video/pl3.jpg"
+								 playsinline>
+									<source src="video/l3.mp4" type="video/mp4">
+									</source>
+								</video>
+							</div>
+							<div class="video-item" data-drag="1">
+								<video class="video-invisible" data-drag="1" width="100%" height="auto" preload="auto" poster="video/pr4.jpg"
+								 playsinline>
+									<source src="video/r4.mp4" type="video/mp4">
+									</source>
+								</video>
+							</div>
+						</div>
+
+
+						<div class="wrapper-dad-field">
+							<div class="padding-hack">
+								<div class="dad-field">
+
+								</div>
+							</div>
+							<div class="padding-hack">
+								<div class="dad-field">
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="wrapper-btn-dad">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b8.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b7.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b6.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b5.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b4.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b3.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b2.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable" src="img/bl/b1.png" data-drag="1">
+						</div>
+
+						<div class="wrapper-btn-dad">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b8.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b7.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b6.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b5.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b4.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b3.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b2.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable" src="img/bl/b1.png" data-drag="2">
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+
+
 			<div class="item">
 				2
 			</div>
@@ -190,7 +305,7 @@ background-image: url(img/btn/btn4.png);
 
 	<section class="audio-files" style="display: flex; flex-direction: column;">
 		<audio class="audio-question" id="fist-audio">
-			<source src="audio/3-02.mp3" type="audio/mpeg">
+			<source src="audio/3-01.mp3" type="audio/mpeg">
 		</audio>
 		<audio class="audio-question">
 			<source src="audio/3-02.mp3" type="audio/mpeg">
@@ -252,17 +367,29 @@ background-image: url(img/btn/btn4.png);
 	</section>
 
 
-	<script src="../shares/interactive.js"></script>
 
+
+	<!-- 	<script src="../shares/plugins/jquery.min.js"></script> -->
+	<script src="../shares/interactive.js"></script>
 	<script src="../shares/plugins/DragAndDrop/interact.min.js"></script>
 
 
 
 
 	<script>
-		var changeColor = new ChangeColor();
+		var changeColor = new ChangeColor({
+			changeVideo: '.interactive-field .change-video', //Видео с анимацией
+			btnChange: '.interactive-field .btn-change' //Кнопки смены видео
+		});
+
+		var dragAndDropInvisible = new DragAndDropInvisible({
+			dadElements: '.interactive-field .btn-dad', //Перетаскиваемые элементы
+			fieldForDadElements: '.interactive-field .video-item', //Поля на которые перетаскиваются элементы
+			actionAnimation: '.interactive-field .video-invisible' //Анимируемые выдео
+		});
 
 
+		/* ------------------------------------------------------------------------------ */
 
 		field.changeField.addEventListener('touchstart', function (event) { //Смена цвета клик на видео
 			if (event.targetTouches.length == 1) {
@@ -296,6 +423,37 @@ background-image: url(img/btn/btn4.png);
 				}
 			}
 		}, false);
+
+
+		/* ------------------------------------------------------------------------------ */
+
+		field.changeField.addEventListener('touchstart', function (event) { //Перетаскивание элементов
+			if (event.targetTouches.length == 1) {
+				event.preventDefault();
+				var target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('btn-dad')) {
+						// нашли элемент, который нас интересует!
+						target.addEventListener('touchend', function () { //Хак с добавлением touchend
+							dragAndDropInvisible.checkUnderElement(target);
+						}, false);
+						setTimeout(function () {
+							dragAndDropInvisible.showDadElements.call(target);
+						}, 300)
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
+
+
+
+
+
+
+
+
 
 
 
@@ -338,7 +496,6 @@ background-image: url(img/btn/btn4.png);
 			target.setAttribute('data-x', x);
 			target.setAttribute('data-y', y);
 		}
-
 		// this is used later in the resizing and gesture demos
 		window.dragMoveListener = dragMoveListener;
 	</script>
