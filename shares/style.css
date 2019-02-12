@@ -655,8 +655,8 @@ img {
 	justify-content: space-between;
 }
 
-.drag-and-drop-invisible .video-animation .video-item{
-padding: 5%;
+.drag-and-drop-invisible .video-animation .video-item {
+	padding: 5%;
 }
 
 /* Перетаскивание на невидимые поля end */
@@ -667,7 +667,90 @@ padding: 5%;
 
 /*  */
 
+.appear-on-click {
+	position: relative;
+	margin-top: 20%;
+}
+
+.appear-on-click .appear-elements {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+}
+
+.appear-on-click .appear-elements img {
+	position: absolute;
+	width: 20%;
+	height: auto;
+	transition: all .5s ease;
+}
+
+.appear-on-click .a-e-1 {
+	bottom: 4%;
+	left: 40%;
+}
+
+.appear-on-click .a-e-2 {
+	bottom: 7%;
+	left: 23%;
+}
+
+.appear-on-click .a-e-3 {
+	bottom: 7%;
+	left: 62%;
+}
+
+.appear-on-click .a-e-4 {
+	bottom: 14%;
+	left: 51%;
+}
+
+.appear-on-click .a-e-5 {
+	bottom: 17%;
+	left: 31%;
+}
+
+.appear-on-click .a-e-6 {
+		bottom: 21%;
+		left: 68%;
+}
+
+.appear-on-click .a-e-7 {
+	bottom: 21%;
+	left: 14%;
+}
+
+.appear-on-click .a-e-8 {
+	bottom: 26%;
+	left: 47%;
+}
+
+.appear-on-click .a-e-9 {
+	bottom: 31%;
+	left: 29%;
+}
+
+.appear-on-click .a-e-10 {
+	bottom: 32%;
+	left: 60%;
+}
+
+
+
+
+
 /*  end */
+
+
+
+
+
+
+
+
+
 /*  */
 
 /*  end */

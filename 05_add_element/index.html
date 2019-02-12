@@ -219,21 +219,20 @@ height: 100%;
 				</div>
 			</div>
 
-
 			<div class="item">
 				<div class="grid">
 					<div class="drag-and-drop-invisible">
 
 						<div class="video-animation">
 							<div class="video-item" data-drag="2">
-								<video class="video-invisible" data-drag="2" width="100%" height="auto" preload="auto" poster="video/pl3.jpg"
+								<video class="video-invisible" data-drag="2" data-amount="3" width="100%" height="auto" preload="auto" poster="video/pl3.jpg"
 								 playsinline>
 									<source src="video/l3.mp4" type="video/mp4">
 									</source>
 								</video>
 							</div>
 							<div class="video-item" data-drag="1">
-								<video class="video-invisible" data-drag="1" width="100%" height="auto" preload="auto" poster="video/pr4.jpg"
+								<video class="video-invisible" data-drag="1" data-amount="6" width="100%" height="auto" preload="auto" poster="video/pr4.jpg"
 								 playsinline>
 									<source src="video/r4.mp4" type="video/mp4">
 									</source>
@@ -258,8 +257,8 @@ height: 100%;
 
 
 						<div class="wrapper-btn-dad">
-							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b8.png" data-drag="1">
-							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b7.png" data-drag="1">
+							<!-- 	<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b8.png" data-drag="1">
+							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b7.png" data-drag="1"> -->
 							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b6.png" data-drag="1">
 							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b5.png" data-drag="1">
 							<img class="btn-dad btn-dad-1 draggable op" src="img/bl/b4.png" data-drag="1">
@@ -269,11 +268,11 @@ height: 100%;
 						</div>
 
 						<div class="wrapper-btn-dad">
-							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b8.png" data-drag="2">
+							<!-- 	<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b8.png" data-drag="2">
 							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b7.png" data-drag="2">
 							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b6.png" data-drag="2">
 							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b5.png" data-drag="2">
-							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b4.png" data-drag="2">
+							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b4.png" data-drag="2"> -->
 							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b3.png" data-drag="2">
 							<img class="btn-dad btn-dad-2 draggable op" src="img/bl/b2.png" data-drag="2">
 							<img class="btn-dad btn-dad-2 draggable" src="img/bl/b1.png" data-drag="2">
@@ -379,7 +378,8 @@ height: 100%;
 	<script>
 		var changeColor = new ChangeColor({
 			changeVideo: '.interactive-field .change-video', //Видео с анимацией
-			btnChange: '.interactive-field .btn-change' //Кнопки смены видео
+			btnChange: '.interactive-field .btn-change', //Кнопки смены видео
+			sumTrue: 2, //Количество верных ответов
 		});
 
 		var dragAndDropInvisible = new DragAndDropInvisible({

@@ -209,6 +209,30 @@ class Engine {
 		this.classList.remove(cssClass);
 	}
 
+	addClassAllElement(element, cssClass) { //Добавить класс всем элементам
+		let addElement;
+		if (typeof element === "string") {
+			addElement = document.querySelectorAll(element);
+		} else {
+			addElement = element;
+		}
+		for (let k = 0; k < addElement.length; k++) {
+			addElement[k].classList.add(cssClass);
+		}
+	}
+
+	removeClassAllElement(element, cssClass) { //Удалить класс всем элементам
+		let removeElement;
+		if (typeof element === "string") {
+			removeElement = document.querySelectorAll(element);
+		} else {
+			removeElement = element;
+		}
+		for (let k = 0; k < removeElement.length; k++) {
+			removeElement[k].classList.remove(cssClass);
+		}
+	}
+
 	opacityEffect(time) { //Сделать появление и исчезновение
 		this.style.opacity = '1';
 		setTimeout(() => {
@@ -378,7 +402,7 @@ class DragAndDropInvisible extends DragAndDrop {
 		super();
 		this.dadElements = document.querySelectorAll(options.dadElements); //Перетаскиваемые элементы
 		this.fieldForDadElements = document.querySelectorAll(options.fieldForDadElements); //Поля на которые перетаскиваются элементы
-		this.actionAnimation = document.querySelectorAll(options.actionAnimation); //Анимируемые выдео
+		this.actionAnimation = document.querySelectorAll(options.actionAnimation); //Анимируемые видео
 		this.actionAnimationSelector = options.actionAnimation;
 		this.dadElementsSelector = options.dadElements;
 		this.fieldSelector = options.fieldForDadElements;
@@ -395,25 +419,51 @@ class DragAndDropInvisible extends DragAndDrop {
 		let dropzone = elemUnder.closest(this.fieldSelector);
 		if (dropzone) {
 			if (dropzone.getAttribute('data-drag') === that.getAttribute('data-drag')) {
-				this.playYes();
+				//this.playYes();
 				this.playThisVideo.call(this.findDataDrag(dropzone.getAttribute('data-drag')));
+				this.requiredAmount(dropzone);
 			} else {
 				this.playNo();
 			}
 		}
-
-
-
 		for (const iterator of document.querySelectorAll(this.dadElementsSelector)) {
 			iterator.classList.remove('pointer-e');
 		}
-
 		/* 	for (let k = 0; k < this.dadElements.length; k++) {
 				this.dadElements[k].classList.remove('pointer-e');
 			} */
 	}
 
-	findDataDrag(data) {
+	requiredAmount(dropzone) { //Необходимое количество элементов, которые могут быть перенесены на поле
+		let children = dropzone.firstElementChild;
+		let num = +children.getAttribute('data-amount');
+		num--;
+		if (num <= 0) {
+			this.playYes();
+			children.setAttribute('data-amount', num);
+			this.checkDataAmount();
+		} else {
+			children.setAttribute('data-amount', num);
+		}
+	}
+
+	checkDataAmount() {
+		let videoAmount = document.querySelectorAll(this.actionAnimationSelector);
+		let arrAmount = [];
+		for (let k = 0; k < videoAmount.length; k++) {
+			if (+videoAmount[k].getAttribute('data-amount') <= 0) {
+				arrAmount.push('1');
+			}
+		}
+		if (arrAmount.length === this.actionAnimation.length) {
+			setTimeout(() => {
+				field.showNextPage();
+			}, 2500);
+		}
+
+	}
+
+	findDataDrag(data) { // Возвращает видео элемент совподающий с перетаскиваемым элементом
 		let actionAnimation = document.querySelectorAll(this.actionAnimationSelector);
 		for (let k = 0; k < actionAnimation.length; k++) {
 			if (actionAnimation[k].getAttribute('data-drag') === data) {
@@ -431,14 +481,13 @@ class DragAndDropInvisible extends DragAndDrop {
 class Matches extends Engine {
 	constructor() {
 		super();
-		this.firstMatches = {};
+		this.firstMatches = '';
 		this.secondMatches = '';
 		this.allMatches = false;
 	}
 
-	addValueInFirst(that, val) { //Задаем значение для первого элемента
-		this.firstMatches.that = that;
-		this.firstMatches.val = val;
+	addValueInFirst(val) { //Задаем значение для первого элемента
+		this.firstMatches= val;
 	}
 
 	addValueInSecond(val) { //Задаем значение для второго элемента
@@ -446,7 +495,7 @@ class Matches extends Engine {
 	}
 
 	checkMatches() { // Проверка совпадают ли значения элементов
-		if ((this.firstMatches.val === this.secondMatches) && this.firstMatches.val != '') {
+		if ((this.firstMatches === this.secondMatches) && this.firstMatches != '') {
 			this.allMatches = true;
 		} else {
 			this.allMatches = false;
@@ -454,40 +503,49 @@ class Matches extends Engine {
 	}
 }
 
+
 class ChangeColor extends Matches {
 	constructor(options) {
 		super();
 		this.allVideoChange = document.querySelectorAll(options.changeVideo);
 		this.allBtnChange = document.querySelectorAll(options.btnChange);
+		this.allBtnChangeSelector = options.btnChange;
 		this.parentVideo = '';
 		this.parentBtn = '';
 		this.arrAllMatches = [];
-		this.flagFirstClickChang = true;
-		this.sumTrueAllChange = 0; // Количество верных ответов всего
-		this.sumTrueClicksChange = 0; // Количество верных ответов при клике
+		//this.flagFirstClickChang = true;
+		this.sumTrueAllChange = options.sumTrue; // Количество верных ответов всего
+		//this.sumTrueClicksChange = 0; // Количество верных ответов при клике
 	}
 
 	addParent(that) {
 		this.parentVideo = that.parentElement;
+		this.removeClassAllElement(this.allBtnChangeSelector, 'big-btn')
 	}
 
-	addValueInSecond(val) { //Задаем значение для второго элемента и находим количество верных ответов всего
-		super.addValueInSecond(val);
-		if (this.flagFirstClickChang) {
-			for (let d = 0; d < this.allBtnChange.length; d++) {
-				if (this.allBtnChange[d].getAttribute('data-change') != '') {
-					this.sumTrueAllChange++;
+
+	/* 	addValueInSecond(val) { //Задаем значение для второго элемента и находим количество верных ответов всего
+			super.addValueInSecond(val);
+			if (this.flagFirstClickChang) {
+				for (let d = 0; d < this.allBtnChange.length; d++) {
+					if (this.allBtnChange[d].getAttribute('data-change') != '') {
+						this.sumTrueAllChange++;
+					}
 				}
+				this.flagFirstClickChang = false;
 			}
-			this.flagFirstClickChang = false;
-		}
-	}
+		} */
 
 	checkMatchesAllTrue() { // Проверка, верных ответов для перехода на др. страницу
-		if (this.sumTrueAllChange === this.sumTrueClicksChange) {
-			this.flagFirstClickChang = true;
-			this.sumTrueAllChange = 0;
-			this.sumTrueClicksChange = 0;
+		let btnChange = document.querySelectorAll(this.allBtnChangeSelector);
+		let arrBtnDadCheck = [];
+		for (let k = 0; k < btnChange.length; k++) {
+			if (btnChange[k].hasAttribute('data-check')) {
+				arrBtnDadCheck.push('1');
+			}
+		}
+
+		if (this.sumTrueAllChange === arrBtnDadCheck.length) {
 			setTimeout(() => {
 				field.showNextPage();
 			}, 2500);
@@ -495,27 +553,66 @@ class ChangeColor extends Matches {
 	}
 
 	checkChangeElements(that) { // Проверка, подходят ли элементы друг другу
-		//let btn;
+		let btn;
+		//let answer;
 		this.parentBtn = that.parentElement.children;
 		for (let k = 0; k < this.parentBtn.length; k++) {
 			if (this.parentBtn[k] === that) {
 				this.removeClassOneElement.call(this.parentVideo.children[k], this.parentVideo.children, 'd-n');
 				this.playThisVideo.call(this.parentVideo.children[k]);
-				this.firstMatches.val = this.parentVideo.children[k].getAttribute('data-change');
-				//btn = this.parentBtn[k];
+				this.firstMatches = this.parentVideo.children[k].getAttribute('data-change');
+				btn = this.parentBtn[k];
+				//answer = this.firstMatches.val;
 			}
 		}
+
 		this.checkMatches();
 		if (this.allMatches) {
 			this.playYes();
-			//btn.setAttribute('data-change', '');
-			this.sumTrueClicksChange++;
+			btn.setAttribute('data-check', '');
+			//this.sumTrueClicksChange++;
 			this.checkMatchesAllTrue();
 		} else {
+			/* if (that.hasAttribute('data-check')) {
+				that.removeAttribute('data-check');
+			} */
 			this.playNo();
 		}
 	}
 }
+
+
+
+class AppearElementsOnClick extends Engine {
+	constructor(options) {
+		super();
+		this.appearItemsSelector = options.appearItems;
+		this.sumTrueElements = document.querySelectorAll(options.appearItems).length;
+		this.curentElements = 0;
+	}
+
+	appearElements() {
+		let clickField = document.querySelectorAll(this.appearItemsSelector)
+		for (let k = 0; k < clickField.length; k++) {
+			if (clickField[k].classList.contains('op')) {
+				clickField[k].classList.remove('op');
+				this.curentElements++;
+				break;
+			}
+		}
+		if (this.sumTrueElements === this.curentElements) {
+			this.curentElements++;
+			this.playYes();
+			setTimeout(() => {
+				field.showNextPage();
+				field.changeField.addEventListener('touchstart', clickFieldHandler, false);
+				this.curentElements = 0;
+			}, 3000);
+		}
+	}
+}
+
+
 
 
 
