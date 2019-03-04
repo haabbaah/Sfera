@@ -40,38 +40,56 @@
 		<div class="interactive-field">
 			<div class="item">
 
-				<div class="answer">
-					<div class="question-field">
-						<img src="img/01_1.jpg" alt="">
-					</div>
-					<div class="question-field">
-						<img src="img/01_2.jpg" alt="">
-					</div>
-					<div class="answer-field answer-yes answer-1">
-					</div>
-					<div class="answer-field answer-no answer-2">
+				<div class="item-center">
+					<div class="grid">
+						<div class="answer">
+							<div class="question-field">
+								<img src="img/01_1.jpg" alt="">
+							</div>
+							<div class="question-field">
+								<img src="img/01_2.jpg" alt="">
+							</div>
+							<div class="answer-field answer-yes answer-1">
+							</div>
+							<div class="answer-field answer-no answer-2">
+							</div>
+						</div>
 					</div>
 				</div>
 
 			</div>
+
 			<div class="item">
-				1
+
+				<div class="item-center">
+					<div class="grid">
+						<div class="answer">
+							<div class="question-field">
+								<img src="img/01_1.jpg" alt="">
+							</div>
+							<div class="question-field">
+								<img src="img/01_2.jpg" alt="">
+							</div>
+							<div class="answer-field answer-no answer-1">
+							</div>
+							<div class="answer-field answer-yes answer-2">
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
+
 			<div class="item">
-				2
+				<div class="next-global-page-wrapper">
+					<a href="um://page/02">
+						<svg class="next-global-page big-small" viewBox="-20 -35 200 200" preserveAspectRatio="xMidYMin slice">
+							<path d="m 66.676294,9.7758998 43.591646,0.3401712 51.19571,51.782739 -51.94858,51.40476 H 67.353895 L 105.26637,74.793549 1.0690781,75.166291 V 47.063241 L 105.26637,46.793549 Z">
+						</svg>
+					</a>
+				</div>
 			</div>
-			<div class="item">
-				3
-			</div>
-			<div class="item">
-				4
-			</div>
-			<div class="item">
-				5
-			</div>
-			<div class="item">
-				6
-			</div>
+
 
 
 
@@ -94,7 +112,7 @@
 		<audio class="audio-question">
 			<source src="audio/1-02.mp3" type="audio/mpeg">
 		</audio>
-		<audio class="audio-question">
+		<!-- 		<audio class="audio-question">
 			<source src="audio/1-03.mp3" type="audio/mpeg">
 		</audio>
 		<audio class="audio-question">
@@ -102,7 +120,7 @@
 		</audio>
 		<audio class="audio-question">
 			<source src="audio/1-05.mp3" type="audio/mpeg">
-		</audio>
+		</audio> -->
 	</section>
 
 	<section class="audio-files" style="display: flex; flex-direction: column;">
@@ -156,6 +174,14 @@
 
 	<script src="../shares/interactive.js"></script>
 
+	<script src="../shares/plugins/video-animation/idel-active.js"></script>
+
+
+
+
+
+
+	
 	<script>
 		let answersField = new Answers();
 
@@ -167,7 +193,7 @@
 					if (target.classList.contains('answer-field')) {
 						// нашли элемент, который нас интересует!
 						answersField.checkAnswer(event.targetTouches[0]);
-						answersField.opacityEffect.call(target, 300);
+						answersField.opacityEffect.call(target, 2000);
 						return;
 					}
 					target = target.parentNode;
@@ -175,11 +201,15 @@
 			}
 		}, false);
 
-		/* 	var audioFirst = new VideoAnimation({
+
+
+
+
+		var audioFirst = new VideoAnimation({
 			selector: 'fist-audio',
 			startTime: 0,
 			loop: false
-		}); */
+		});
 	</script>
 
 </body>

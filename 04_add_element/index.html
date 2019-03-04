@@ -79,7 +79,9 @@ height: 26%;
 		</div>
 
 		<div class="interactive-field">
-			<div class="item">
+
+
+			<div class="item dragging">
 				<div class="grid">
 
 					<div class="drag-and-drop">
@@ -139,11 +141,15 @@ height: 26%;
 			</div>
 
 			<div class="item">
-
+				<div class="next-global-page-wrapper">
+					<a href="um://page/03">
+						<svg class="next-global-page big-small" viewBox="-20 -35 200 200" preserveAspectRatio="xMidYMin slice">
+							<path d="m 66.676294,9.7758998 43.591646,0.3401712 51.19571,51.782739 -51.94858,51.40476 H 67.353895 L 105.26637,74.793549 1.0690781,75.166291 V 47.063241 L 105.26637,46.793549 Z">
+						</svg>
+					</a>
+				</div>
 			</div>
-			<div class="item">
 
-			</div>
 
 		</div>
 
@@ -219,6 +225,8 @@ height: 26%;
 
 	<script src="../shares/plugins/DragAndDrop/interact.min.js"></script>
 
+	<script src="../shares/plugins/video-animation/idel-active.js"></script>
+
 
 
 
@@ -229,7 +237,21 @@ height: 26%;
 		});
 
 
-		field.changeField.addEventListener('touchstart', function (event) { //Перетаскивание элементов
+
+		let drag = document.querySelector('.dragging'); // Необходимо добавлять класс на поле с перетаскиванием
+
+		document.querySelector('.btn-click-start').addEventListener('touchstart', function (event) {
+			if (event.targetTouches.length == 1) {
+				event.preventDefault();
+				drag = document.querySelector('.dragging');
+				drag.addEventListener('touchstart', addDaD, false);
+				drag.addEventListener('touchmove', addDaDMove, false);
+			}
+		}, false);
+
+		drag.addEventListener('touchstart', addDaD, false);
+
+		function addDaD(event) {
 			if (event.targetTouches.length == 1) {
 				event.preventDefault();
 				var target = event.targetTouches[0].target;
@@ -247,10 +269,13 @@ height: 26%;
 					target = target.parentNode;
 				}
 			}
-		}, false);
+		}
 
 
-		field.changeField.addEventListener('touchmove', function (event) { //Перетаскивание элементов
+
+		drag.addEventListener('touchmove', addDaDMove, false);
+
+		function addDaDMove(event) {
 			if (event.targetTouches.length == 1) {
 				event.preventDefault();
 				var target = event.targetTouches[0].target;
@@ -263,8 +288,20 @@ height: 26%;
 					target = target.parentNode;
 				}
 			}
-		}, false);
+		}
 
+
+
+
+
+
+
+
+		var audioFirst = new VideoAnimation({
+			selector: 'fist-audio',
+			startTime: 0,
+			loop: false
+		});
 
 
 
@@ -274,7 +311,7 @@ height: 26%;
 				//inertia: true,
 				// enable autoScroll
 				restrict: {
-					restriction: '.interactive-field',
+					//restriction: '.interactive-field',
 					endOnly: true,
 				},
 				//autoScroll: true,

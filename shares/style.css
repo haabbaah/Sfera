@@ -260,10 +260,36 @@ table::after {
 	height: 90%;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	cursor: none;
 }
 
 *:active,
@@ -289,13 +315,68 @@ table::after {
 	position: relative;
 	width: 100vw;
 	height: 76vh;
-	background-color: #E8A788;
+	background-color: #fff;
 }
 
 .window .progress {
 	width: 100vw;
 	height: 9.5vh;
 }
+
+.next-global-page-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.next-global-page {
+	display: block;
+	margin: 0 auto;
+	width: 50vw;
+	height: 50vw;
+	fill: #D6D6D6;
+	stroke-width: 4;
+	border-radius: 50%;
+	border: 2vw solid #D6D6D6;
+}
+
+.next-global-page:hover {
+	fill: #0aaadc;
+	border: 2vw solid #0aaadc;
+}
+
+
+.item-center {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.big-small {
+	opacity: .3;
+	animation: bigsmall 1.8s infinite ease;
+}
+
+
+@keyframes bigsmall {
+
+	0% {}
+
+	50% {
+		transform: scale(1.1);
+		opacity: 1;
+	}
+
+	100% {}
+}
+
+
+
+
 
 /* Навигация */
 
@@ -308,9 +389,17 @@ table::after {
 	border: .8vw solid #D6D6D6;
 	background-color: #fff;
 	border-radius: 50%;
-	margin: 0 5vw;
+	margin: 0;
 	padding: 1.7vw;
 	transition: all .2s ease;
+}
+
+.navigation .btn-click-prev {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	transform: translateY(-50%);
+	z-index: 100000;
 }
 
 .navigation .btn-click-prev svg {
@@ -322,7 +411,6 @@ table::after {
 	transition: all .2s ease;
 }
 
-
 .navigation .btn-click-start svg {
 	-webkit-transform: translateX(-0.19vw);
 	transform: translateX(-0.19vw);
@@ -330,6 +418,14 @@ table::after {
 	height: 100%;
 	fill: #D6D6D6;
 	transition: all .2s ease;
+}
+
+.navigation .btn-click-next {
+	position: absolute;
+	top: 50%;
+	right: 0%;
+	transform: translateY(-50%);
+	z-index: 100000;
 }
 
 .navigation .btn-click-next svg {
@@ -437,6 +533,9 @@ table::after {
 /* Пагинация end */
 
 
+
+
+
 /* Общеие стили */
 
 .grid {
@@ -464,6 +563,7 @@ img {
 .pointer-e {
 	pointer-events: none;
 }
+
 
 /* Общеие стили end */
 
@@ -665,8 +765,7 @@ img {
 
 
 
-/*  */
-
+/* Появление элементов при клике на поле */
 .appear-on-click {
 	position: relative;
 	margin-top: 20%;
@@ -687,58 +786,183 @@ img {
 	transition: all .5s ease;
 }
 
-.appear-on-click .a-e-1 {
-	bottom: 4%;
-	left: 40%;
+/* Появление элементов при клике на поле end */
+
+
+
+
+
+
+
+
+
+/*  */
+.line-between-elements {
+	position: relative;
+	margin-top: 5%;
 }
 
-.appear-on-click .a-e-2 {
-	bottom: 7%;
-	left: 23%;
+.line-between-elements .line-between {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke-width: .6%;
+	stroke-linecap: round;
+	stroke-dasharray: 0 550;
 }
 
-.appear-on-click .a-e-3 {
-	bottom: 7%;
-	left: 62%;
+.line-between-elements .l-b-1 {
+	stroke: rgb(0, 255, 64);
 }
 
-.appear-on-click .a-e-4 {
-	bottom: 14%;
-	left: 51%;
+.line-between-elements .l-b-2 {
+	stroke: rgb(255, 0, 0);
 }
 
-.appear-on-click .a-e-5 {
-	bottom: 17%;
-	left: 31%;
-}
-
-.appear-on-click .a-e-6 {
-		bottom: 21%;
-		left: 68%;
-}
-
-.appear-on-click .a-e-7 {
-	bottom: 21%;
-	left: 14%;
-}
-
-.appear-on-click .a-e-8 {
-	bottom: 26%;
-	left: 47%;
-}
-
-.appear-on-click .a-e-9 {
-	bottom: 31%;
-	left: 29%;
-}
-
-.appear-on-click .a-e-10 {
-	bottom: 32%;
-	left: 60%;
+.line-between-elements .l-b-3 {
+	stroke: rgb(0, 102, 255);
 }
 
 
+.line-between-elements .click-field-1 {
+	position: absolute;
+	z-index: 1000;
+}
 
+.line-between-elements .c-f-1 {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40%;
+}
+
+.line-between-elements .c-f-2 {
+	top: 41%;
+	right: 0%;
+	width: 51%;
+	height: 35%;
+}
+
+.line-between-elements .c-f-3 {
+	top: 42%;
+	left: 5%;
+	width: 30%;
+	height: 31%;
+}
+
+.line-between-elements .click-field-2 {
+	position: absolute;
+}
+
+
+.line-between-elements .c-f-4 {
+	bottom: 0%;
+	left: 0%;
+	width: 33%;
+	height: 25%;
+}
+
+.line-between-elements .c-f-5 {
+	bottom: 0%;
+	right: 30%;
+	width: 34%;
+	height: 22%;
+}
+
+.line-between-elements .c-f-6 {
+	bottom: 0%;
+	right: 0%;
+	width: 25%;
+	height: 20%;
+}
+
+
+
+
+.drow-line {
+	animation: dasharray 2s alternate forwards;
+}
+
+@keyframes dasharray {
+	100% {
+		/* Черточки нулевой длины с длинными пробелами, линиия исчезнет */
+		stroke-dasharray: 500 0;
+		opacity: 1;
+	}
+}
+
+
+.pop-element {
+	position: absolute;
+}
+
+.p-e-1 {
+	top: 1%;
+	left: 3%;
+	width: 94%;
+}
+
+.p-e-2 {
+	top: 42%;
+	right: 3%;
+	width: 41%;
+}
+
+.p-e-3 {
+	top: 44%;
+	left: 10%;
+	width: 18%;
+}
+
+.p-e-4 {
+	bottom: 5%;
+	left: 1%;
+	width: 28%;
+}
+
+.p-e-5 {
+	bottom: 6%;
+	left: 44%;
+	width: 18%;
+}
+
+.p-e-6 {
+	bottom: 5%;
+	right: 7%;
+	width: 9%;
+}
+
+
+
+.pop-animate {
+	animation-name: boom;
+	animation-duration: 0.4s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes boom {
+	0% {}
+
+	50% {
+		-webkit-transform: scale(.9, 1.2);
+		-ms-transform: scale(.9, 1.2);
+		transform: scale(.9, 1.2);
+		-webkit-transform-origin: bottom;
+		-ms-transform-origin: bottom;
+		transform-origin: bottom;
+	}
+
+	100% {}
+}
+
+
+
+.accent-element {
+	background-color: rgba(125, 228, 176, .3);
+}
 
 
 /*  end */
@@ -746,11 +970,12 @@ img {
 
 
 
+/*  */
 
+/*  end */
+/*  */
 
-
-
-
+/*  end */
 /*  */
 
 /*  end */

@@ -10,6 +10,56 @@
 
 	<style>
 
+		.appear-on-click .a-e-1 {
+bottom: 4%;
+left: 40%;
+}
+
+.appear-on-click .a-e-2 {
+bottom: 7%;
+left: 23%;
+}
+
+.appear-on-click .a-e-3 {
+bottom: 7%;
+left: 62%;
+}
+
+.appear-on-click .a-e-4 {
+bottom: 14%;
+left: 51%;
+}
+
+.appear-on-click .a-e-5 {
+bottom: 17%;
+left: 31%;
+}
+
+.appear-on-click .a-e-6 {
+bottom: 21%;
+left: 68%;
+}
+
+.appear-on-click .a-e-7 {
+bottom: 21%;
+left: 14%;
+}
+
+.appear-on-click .a-e-8 {
+bottom: 26%;
+left: 47%;
+}
+
+.appear-on-click .a-e-9 {
+bottom: 31%;
+left: 29%;
+}
+
+.appear-on-click .a-e-10 {
+bottom: 32%;
+left: 60%;
+}
+
 
 	</style>
 </head>
@@ -44,7 +94,49 @@
 			<div class="item">
 				<div class="grid">
 					<div class="line-between-elements">
-<img src="img/02.jpg" alt="">
+						<img src="img/line/02.jpg" alt="">
+
+						<svg class="line-between l-b-1 op" data-line="1" viewBox="-70 -497 830 830" preserveAspectRatio="xMidYMin slice">
+							<path d="m 344.24315,-162.11 c 0,0 -70.49904,38.19719 -84.01435,81.635241 -15.36753,49.391029 28.5431,103.252585 14.39456,154.510547 -9.7318,35.256792 -81.12023,73.886842 -81.12023,73.886842 l -2.13815,1.06907">
+						</svg>
+
+						<svg class="line-between l-b-2 op" data-line="3" viewBox="-72 -490 795 795" preserveAspectRatio="xMidYMin slice">
+							<path d="m 213.93452,-12.184542 c 0,0 18.18581,85.160269 51.40476,112.636892 59.0114,48.81049 162.12845,22.87981 235.1012,46.1131 15.14206,4.82097 33.26191,26.45834 33.26191,26.45834 v 0">
+						</svg>
+
+						<svg class="line-between l-b-3 op" data-line="2" viewBox="-152 -555 895 895" preserveAspectRatio="xMidYMin slice">
+							<path d="m 556.38094,75.505917 c 0,0 -18.61972,55.728563 -57.45239,85.422633 -38.83267,29.69407 -91.47021,42.33332 -91.47021,42.33332">
+						</svg>
+
+
+						<img class="pop-element p-e-1" src="img/line/z1.png" alt="">
+						<img class="pop-element p-e-2" src="img/line/z2.png" alt="">
+						<img class="pop-element p-e-3" src="img/line/z3.png" alt="">
+						<img class="pop-element p-e-4" src="img/line/m1.png" alt="">
+						<img class="pop-element p-e-5" src="img/line/m2.png" alt="">
+						<img class="pop-element p-e-6" src="img/line/m3.png" alt="">
+
+
+						<div class="click-field-1 c-f-1" data-line="1">
+
+						</div>
+						<div class="click-field-1 c-f-2" data-line="2">
+
+						</div>
+						<div class="click-field-1 c-f-3" data-line="3">
+
+						</div>
+
+						<div class="click-field-2 c-f-4" data-line="1">
+
+						</div>
+						<div class="click-field-2 c-f-5" data-line="2">
+
+						</div>
+						<div class="click-field-2 c-f-6" data-line="3">
+
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -73,8 +165,15 @@
 				</div>
 			</div>
 
+
 			<div class="item">
-				2
+				<div class="next-global-page-wrapper">
+					<a href="um://page/05">
+						<svg class="next-global-page big-small" viewBox="-20 -35 200 200" preserveAspectRatio="xMidYMin slice">
+							<path d="m 66.676294,9.7758998 43.591646,0.3401712 51.19571,51.782739 -51.94858,51.40476 H 67.353895 L 105.26637,74.793549 1.0690781,75.166291 V 47.063241 L 105.26637,46.793549 Z">
+						</svg>
+					</a>
+				</div>
 			</div>
 
 		</div>
@@ -96,9 +195,9 @@
 		<audio class="audio-question">
 			<source src="audio/3-02.mp3" type="audio/mpeg">
 		</audio>
-		<audio class="audio-question">
+	<!-- 	<audio class="audio-question">
 			<source src="audio/3-03.mp3" type="audio/mpeg">
-		</audio>
+		</audio> -->
 
 	</section>
 
@@ -144,8 +243,8 @@
 			</audio>
 		</div>
 
-		<div class="click-audio">
-			<audio class="audio-answer">
+		<div class="other-audio">
+			<audio class="click-audio">
 				<source src="../shares/answer_sound/click.mp3" type="audio/mpeg">
 			</audio>
 		</div>
@@ -158,13 +257,60 @@
 	<!-- 	<script src="../shares/plugins/jquery.min.js"></script> -->
 	<script src="../shares/interactive.js"></script>
 
+	<script src="../shares/plugins/video-animation/idel-active.js"></script>
+
 
 
 
 	<script>
+		var lineBetweenElements = new LineBetweenElements({
+			clickElements1: '.click-field-1',
+			clickElements2: '.click-field-2',
+			line: '.line-between',
+		});
+
 		var appearElements = new AppearElementsOnClick({
 			appearItems: '.appear-item',
 		});
+
+
+
+		/* ------------------------------------------------------------------------------ */
+
+
+		field.changeField.addEventListener('touchstart', function (event) { //Клик на первое поле
+			if (event.targetTouches.length == 1) {
+				var target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('click-field-1')) {
+						// нашли элемент, который нас интересует!
+						lineBetweenElements.popElement(target);
+						lineBetweenElements.addValueInFirst(target.getAttribute('data-line'), target);
+						lineBetweenElements.checkElementBetweenLine();
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
+
+
+
+		field.changeField.addEventListener('touchstart', function (event) { //Клик на второе поле
+			if (event.targetTouches.length == 1) {
+				var target = event.targetTouches[0].target;
+				while (target != field.changeField) {
+					if (target.classList.contains('click-field-2')) {
+						// нашли элемент, который нас интересует!
+						lineBetweenElements.popElement(target);
+						lineBetweenElements.addValueInSecond(target.getAttribute('data-line'), target);
+						lineBetweenElements.checkElementBetweenLine();
+						return;
+					}
+					target = target.parentNode;
+				}
+			}
+		}, false);
 
 
 
@@ -183,6 +329,14 @@
 				}
 			}
 		}, false);
+
+
+
+		var audioFirst = new VideoAnimation({
+			selector: 'fist-audio',
+			startTime: 0,
+			loop: false
+		});
 	</script>
 
 </body>
